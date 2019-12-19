@@ -1,6 +1,7 @@
 ## 00. Prepare
 
-+ GCP: `ca-igarashi-test-v3` を使用する
++ GCPプロジェクト: `iganari-k8s-hardway-pre` を使用する想定で書いていきます。
+  + 該当の箇所は適宜読み替えて下さい。
 
 実行環境
 
