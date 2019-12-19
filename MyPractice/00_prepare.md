@@ -4,13 +4,13 @@
 
 実行環境
 
-GCP: `ca-igarashi-test-v3` 上にデフォルトの VPC ネットワーク上に GCE `kubernetes-the-hard-way-manual` を作ってある
+GCP: `iganari-k8s-hardway-pre` 上にデフォルトの VPC ネットワーク上に GCE `kubernetes-the-hard-way-manual` を作ってある
 
 この中に SSH して作業を行う
 
 
 ```
-gcloud config set project ca-igarashi-test-v3
+gcloud config set project iganari-k8s-hardway-pre
 gcloud config set compute/zone asia-northeast1-c
 ```
 ```
