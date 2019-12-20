@@ -29,7 +29,7 @@ gcloud config set compute/zone asia-northeast1-c
 + GCE を起動します。
 
 ```
-gcloud beta compute instances create kubernetes-the-hard-way-manual \
+gcloud beta compute instances create kubernetes-the-hard-way-vm \
     --machine-type=f1-micro \
     --subnet=default \
     --image=ubuntu-1804-bionic-v20191211 \
@@ -39,7 +39,7 @@ gcloud beta compute instances create kubernetes-the-hard-way-manual \
 + この GCE に SSH して作業を行います。
 
 ```
-gcloud compute ssh kubernetes-the-hard-way-manual
+gcloud compute ssh kubernetes-the-hard-way-vm
 ```
 
 + Debian と Ubuntu 用のクイックスタート
@@ -98,7 +98,7 @@ gcloud config configurations list
 
 $ gcloud config configurations list
 NAME                            IS_ACTIVE  ACCOUNT  PROJECT                         DEFAULT_ZONE  DEFAULT_REGION
-kubernetes-the-hard-way-manual  True                kubernetes-the-hard-way-manual
+kubernetes-the-hard-way-vm      True                kubernetes-the-hard-way-vm
 ```
 
 
@@ -107,5 +107,5 @@ kubernetes-the-hard-way-manual  True                kubernetes-the-hard-way-manu
 + 作業が終わったら、 GCE は停止しておきましょう
 
 ```
-gcloud beta compute instances stop kubernetes-the-hard-way-manual
+gcloud beta compute instances stop kubernetes-the-hard-way-vm
 ```
