@@ -126,9 +126,6 @@ default                  False
 kubernetes-the-hard-way  True                kubernetes-the-hard-way
 ```
 
-
-ここまでで、 00. Prepare が完了です :raised_hands:
-
 作業が終わったら、 GCE は停止しておきましょう
 
 + :package: GCE から SSH ログアウト
@@ -142,3 +139,7 @@ exit
 ```
 gcloud beta compute instances stop kubernetes-the-hard-way-vm
 ```
+
+ここまでで、 00. Prepare が完了です :raised_hands:
+
+次は []() に進みます
