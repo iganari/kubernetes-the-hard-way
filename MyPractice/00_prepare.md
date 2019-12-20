@@ -4,6 +4,12 @@
 
 + GCPプロジェクト: `iganari-k8s-hardway-pre` を使用する想定で書いていきます。
   + 該当の箇所は適宜読み替えて下さい。
++ アイコンの説明
+  + :computer:
+    + ホストマシン
+  + :package:
+    + GCE
+
 
 ## 実行環境
 
@@ -13,20 +19,20 @@
   + ネットワーク: デフォルトの VPC ネットワーク
   + name: kubernetes-the-hard-way-manual
 
-+ GCP と認証を通します。
++ :computer: GCP と認証を通します。
 
 ```
 gcloud auth login
 ```
 
-+ gcloud コマンドの設定を行います。
++ :computer: gcloud コマンドの設定を行います。
 
 ```
 gcloud config set project iganari-k8s-hardway-pre
 gcloud config set compute/zone asia-northeast1-c
 ```
 
-+ GCE を起動します。
++ :computer: GCE を起動します。
 
 ```
 gcloud beta compute instances create kubernetes-the-hard-way-vm \
@@ -36,7 +42,8 @@ gcloud beta compute instances create kubernetes-the-hard-way-vm \
     --image-project=ubuntu-os-cloud 
 ```
 
-+ この GCE に SSH して作業を行います。
++ :computer: この GCE に SSH して作業を行います。
+  + ここで、 :package: での作業に切り替わります。
 
 ```
 gcloud compute ssh kubernetes-the-hard-way-vm
@@ -46,7 +53,7 @@ gcloud compute ssh kubernetes-the-hard-way-vm
   + https://cloud.google.com/sdk/docs/quickstart-debian-ubuntu?hl=ja
   + 上記を参考に、 Ubuntu に gcloud を作成する
 
-+ Ubuntu の整備の準備をします。
++ :package: Ubuntu の整備の準備をします。
 
 ```
 apt update
@@ -55,7 +62,7 @@ apt dist-upgrade -y
 apt autoremove -y
 ```
 
-+ User を追加します。
++ :package: User を追加します。
   + デフォルトだと root ユーザしかいないためです。
 
 ```
@@ -67,15 +74,14 @@ echo "${_user_name} ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/${_user_name}
 chmod 0440 /etc/sudoers.d/${_user_name}
 ```
 
-+ User 変更をします。
++ :package: User 変更をします。
 
 ```
 su - ${_user_name}
 ```
 
-
-+ gcloud コマンドのインストール
-  + https://cloud.google.com/sdk/docs/quickstart-debian-ubuntu?hl=ja
++ :package: gcloud コマンドのインストールをします。
+  + redfs: https://cloud.google.com/sdk/docs/quickstart-debian-ubuntu?hl=ja
 
 ```
 export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
@@ -84,7 +90,25 @@ curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 sudo apt-get update && sudo apt-get install -y google-cloud-sdk
 ```
 
-+ gcloud コマンドの設定を作る
++ :package: インストールされた gcloud コマンドの確認を行います。
+
+```
+gcloud version
+```
+```
+### 例
+
+$ gcloud version
+Google Cloud SDK 274.0.0
+alpha 2019.12.17
+beta 2019.12.17
+bq 2.0.51
+core 2019.12.17
+gsutil 4.46
+kubectl 2019.12.17
+```
+
++ :package: gcloud コマンドの設定を作ります。
 
 ```
 export _pj='kubernetes-the-hard-way'
@@ -97,14 +121,23 @@ gcloud config configurations list
 ### 例
 
 $ gcloud config configurations list
-NAME                            IS_ACTIVE  ACCOUNT  PROJECT                         DEFAULT_ZONE  DEFAULT_REGION
-kubernetes-the-hard-way-vm      True                kubernetes-the-hard-way-vm
+NAME                     IS_ACTIVE  ACCOUNT  PROJECT                  DEFAULT_ZONE  DEFAULT_REGION
+default                  False
+kubernetes-the-hard-way  True                kubernetes-the-hard-way
 ```
 
 
 ここまでで、 00. Prepare が完了です :raised_hands:
 
-+ 作業が終わったら、 GCE は停止しておきましょう
+作業が終わったら、 GCE は停止しておきましょう
+
++ :package: GCE から SSH ログアウト
+
+```
+exit
+```
+
++ :computer: GCE の停止コマンド
 
 ```
 gcloud beta compute instances stop kubernetes-the-hard-way-vm
