@@ -87,7 +87,7 @@ sudo apt-get update && sudo apt-get install -y google-cloud-sdk
 + gcloud コマンドの設定を作る
 
 ```
-export _pj='kubernetes-the-hard-way-manual'
+export _pj='kubernetes-the-hard-way'
 
 gcloud config configurations create ${_pj}
 gcloud config set project ${_pj}
