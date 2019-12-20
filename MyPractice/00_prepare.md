@@ -26,6 +26,7 @@ gcloud config set project iganari-k8s-hardway-pre
 gcloud config set compute/zone asia-northeast1-c
 ```
 
++ GCE を起動します。
 
 ```
 gcloud beta compute instances create kubernetes-the-hard-way-manual \
@@ -35,7 +36,7 @@ gcloud beta compute instances create kubernetes-the-hard-way-manual \
     --image-project=ubuntu-os-cloud 
 ```
 
-+ この中に SSH して作業を行う
++ この GCE に SSH して作業を行います。
 
 ```
 gcloud compute ssh kubernetes-the-hard-way-manual
@@ -45,7 +46,7 @@ gcloud compute ssh kubernetes-the-hard-way-manual
   + https://cloud.google.com/sdk/docs/quickstart-debian-ubuntu?hl=ja
   + 上記を参考に、 Ubuntu に gcloud を作成する
 
-+ Ubuntu の整備
++ Ubuntu の整備の準備をします。
 
 ```
 apt update
@@ -54,8 +55,8 @@ apt dist-upgrade -y
 apt autoremove -y
 ```
 
-+ User を追加する
-  + デフォルトだと root ユーザしかいないため
++ User を追加します。
+  + デフォルトだと root ユーザしかいないためです。
 
 ```
 export _user_name='iganari' 
@@ -66,7 +67,7 @@ echo "${_user_name} ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/${_user_name}
 chmod 0440 /etc/sudoers.d/${_user_name}
 ```
 
-+ User 変更
++ User 変更をします。
 
 ```
 su - ${_user_name}
@@ -102,3 +103,9 @@ kubernetes-the-hard-way-manual  True                kubernetes-the-hard-way-manu
 
 
 ここまでで、 00. Prepare が完了です :raised_hands:
+
++ 作業が終わったら、 GCE は停止しておきましょう
+
+```
+gcloud beta compute instances stop kubernetes-the-hard-way-manual
+```
