@@ -1,19 +1,42 @@
-## 00. Prepare
+# 00. Prepare
+
+## GCP プロジェクト
 
 + GCPプロジェクト: `iganari-k8s-hardway-pre` を使用する想定で書いていきます。
   + 該当の箇所は適宜読み替えて下さい。
 
-実行環境
+## 実行環境
 
-GCP: `iganari-k8s-hardway-pre` 上にデフォルトの VPC ネットワーク上に GCE `kubernetes-the-hard-way-manual` を作ってある
++ 実行環境を隔離するために、 VM を作成します。
++ 作成する GCE
+  + プロジェクト: iganari-k8s-hardway-pre
+  + ネットワーク: デフォルトの VPC ネットワーク
+  + name: kubernetes-the-hard-way-manual
 
-この中に SSH して作業を行う
++ GCP と認証を通します。
 
+```
+gcloud auth login
+```
+
++ gcloud コマンドの設定を行います。
 
 ```
 gcloud config set project iganari-k8s-hardway-pre
 gcloud config set compute/zone asia-northeast1-c
 ```
+
+
+```
+gcloud beta compute instances create kubernetes-the-hard-way-manual \
+    --machine-type=f1-micro \
+    --subnet=default \
+    --image=ubuntu-1804-bionic-v20191211 \
+    --image-project=ubuntu-os-cloud 
+```
+
++ この中に SSH して作業を行う
+
 ```
 gcloud compute ssh kubernetes-the-hard-way-manual
 ```
