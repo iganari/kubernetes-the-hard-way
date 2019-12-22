@@ -47,7 +47,7 @@ gcloud config configurations list
 
 $ gcloud config configurations list
 NAME                            IS_ACTIVE  ACCOUNT  PROJECT                         DEFAULT_ZONE       DEFAULT_REGION
-kubernetes-the-hard-way-manual  True                kubernetes-the-hard-way-  asia-northeast1-c  asia-northeast1
+kubernetes-the-hard-way-vm      True                kubernetes-the-hard-way-vm      asia-northeast1-c  asia-northeast1
 ```
 
 + tmux のすゝめ
