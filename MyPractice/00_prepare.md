@@ -1,15 +1,17 @@
 # 00. Prepare
 
-## GCP プロジェクト
+## 注意点
 
-+ GCPプロジェクト: `iganari-k8s-hardway-pre` を使用する想定で書いていきます。
-  + 該当の箇所は適宜読み替えて下さい。
 + アイコンの説明
   + :computer:
     + ホストマシン
   + :package:
     + GCE
 
+## GCP プロジェクト
+
++ GCPプロジェクト: `iganari-k8s-hardway-pre` を使用する想定で書いていきます。
+  + 該当の箇所は適宜読み替えて下さい。
 
 ## 実行環境
 
@@ -121,9 +123,9 @@ gcloud config configurations list
 ### 例
 
 $ gcloud config configurations list
-NAME                     IS_ACTIVE  ACCOUNT  PROJECT                  DEFAULT_ZONE  DEFAULT_REGION
-default                  False
-kubernetes-the-hard-way  True                kubernetes-the-hard-way
+NAME                        IS_ACTIVE  ACCOUNT  PROJECT                     DEFAULT_ZONE  DEFAULT_REGION
+default                     False
+kubernetes-the-hard-way-vm  True                kubernetes-the-hard-way-pre
 ```
 
 作業が終わったら、 GCE は停止しておきましょう
@@ -140,6 +142,8 @@ exit
 gcloud beta compute instances stop kubernetes-the-hard-way-vm
 ```
 
+## 次のステップへ :rocket:
+
 ここまでで、 00. Prepare が完了です :raised_hands:
 
-次は [Prerequisites: 前提条件](01-prerequisites.md) に進みます :muscle:
+次は [Prerequisites: 前提条件](01-prerequisites.md) に進みます!! :muscle:

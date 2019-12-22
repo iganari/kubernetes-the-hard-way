@@ -2,7 +2,7 @@
 
 
 + URL
-  + kelseyhightower/kubernetes-the-hard-way
+  + [kelseyhightower/kubernetes-the-hard-way](https://github.com/kelseyhightower/kubernetes-the-hard-way)
 
-1. [Prepare](./00_prepare.md): 準備
-1. [Prerequisites](./01-prerequisites.md): 前提条件
+1. [Prepare: 準備](./00_prepare.md)
+1. [Prerequisites: 前提条件](./01-prerequisites.md)
