@@ -66,4 +66,4 @@ kubernetes-the-hard-way-vm      True                kubernetes-the-hard-way-pre 
 
 ここまでで、 01. prerequisites が完了です :raised_hands:
 
-次は [Prerequisites: 前提条件](01-prerequisites.md) に進みます :muscle:
+次は [Installing the Client Tools: クライアントツールのインストール](02-client-tools.md) に進みます :muscle:
