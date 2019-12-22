@@ -1,15 +1,17 @@
 # 00. Prepare
 
-## GCP プロジェクト
+## 注意点
 
-+ GCPプロジェクト: `iganari-k8s-hardway-pre` を使用する想定で書いていきます。
-  + 該当の箇所は適宜読み替えて下さい。
 + アイコンの説明
   + :computer:
     + ホストマシン
   + :package:
     + GCE
 
+## GCP プロジェクト
+
++ GCPプロジェクト: `iganari-k8s-hardway-pre` を使用する想定で書いていきます。
+  + 該当の箇所は適宜読み替えて下さい。
 
 ## 実行環境
 
