@@ -35,7 +35,7 @@ kubectl 2019.12.17
 ```
 
 + :package: gcloud コマンドの設定を先に作成します。
-  + 本家では `us-west1-c` をデフォルトにしているが、東京リージョン `asia-` に変更します。
+  + 本家では `us-west1-c` をデフォルトにしてますが、東京リージョン `asia-northeast1` に変更します。
 
 ```
 gcloud auth application-default login
@@ -60,10 +60,10 @@ kubernetes-the-hard-way-vm      True                kubernetes-the-hard-way-pre 
 
 ## tmux のすゝめ
 
-このチュートリアルでは複数のコンピュートインスタンスに対して、同じコマンドを実行するため、 tmux の synchronize-panes のような機能があったほうがいいよとのこと
+このチュートリアルでは複数のコンピュートインスタンスに対して、同じコマンドを実行するため、 tmux の synchronize-panes のような機能があったほうがいいよとのことです。
 
 ## 次のステップへ :rocket:
 
 ここまでで、 01. prerequisites が完了です :raised_hands:
 
-次は [Installing the Client Tools: クライアントツールのインストール](02-client-tools.md) に進みます :muscle:
+次は [Installing the Client Tools: クライアントツールのインストール](02-client-tools.md) に進みます!! :muscle:
