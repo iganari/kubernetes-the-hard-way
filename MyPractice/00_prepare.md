@@ -121,9 +121,9 @@ gcloud config configurations list
 ### 例
 
 $ gcloud config configurations list
-NAME                     IS_ACTIVE  ACCOUNT  PROJECT                  DEFAULT_ZONE  DEFAULT_REGION
-default                  False
-kubernetes-the-hard-way  True                kubernetes-the-hard-way
+NAME                        IS_ACTIVE  ACCOUNT  PROJECT                     DEFAULT_ZONE  DEFAULT_REGION
+default                     False
+kubernetes-the-hard-way-vm  True                kubernetes-the-hard-way-pre
 ```
 
 作業が終わったら、 GCE は停止しておきましょう
