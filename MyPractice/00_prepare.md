@@ -142,6 +142,8 @@ exit
 gcloud beta compute instances stop kubernetes-the-hard-way-vm
 ```
 
+## 次のステップへ :rocket:
+
 ここまでで、 00. Prepare が完了です :raised_hands:
 
 次は [Prerequisites: 前提条件](01-prerequisites.md) に進みます :muscle:
