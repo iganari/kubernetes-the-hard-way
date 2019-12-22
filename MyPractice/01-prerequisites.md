@@ -61,3 +61,9 @@ kubernetes-the-hard-way-vm      True                kubernetes-the-hard-way-pre 
 ## tmux のすゝめ
 
 このチュートリアルでは複数のコンピュートインスタンスに対して、同じコマンドを実行するため、 tmux の synchronize-panes のような機能があったほうがいいよとのこと
+
+## 次のステップへ :rocket:
+
+ここまでで、 01. prerequisites が完了です :raised_hands:
+
+次は [Prerequisites: 前提条件](01-prerequisites.md) に進みます :muscle:
