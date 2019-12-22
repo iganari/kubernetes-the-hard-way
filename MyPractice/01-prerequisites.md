@@ -50,8 +50,6 @@ NAME                            IS_ACTIVE  ACCOUNT  PROJECT                     
 kubernetes-the-hard-way-vm      True                kubernetes-the-hard-way-pre      asia-northeast1-c  asia-northeast1
 ```
 
-+ tmux のすゝめ
+## tmux のすゝめ
 
-```
 このチュートリアルでは複数のコンピュートインスタンスに対して、同じコマンドを実行するため、 tmux の synchronize-panes のような機能があったほうがいいよとのこと
-```
