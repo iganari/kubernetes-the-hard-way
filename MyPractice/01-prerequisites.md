@@ -1,5 +1,13 @@
 # 01. prerequisites
 
+## 注意点
+
++ アイコンの説明
+  + :computer:
+    + ホストマシン
+  + :package:
+    + GCE
+
 ## このページで参考にする本家のページ
 
 + Prerequisites
@@ -7,7 +15,7 @@
 
 ## やること
 
-+ gcloud コマンドの準備
++ :package: gcloud コマンドの準備
   + Google Cloud SDK のバージョンが 262.0.0 より高いことを確認します。
 
 ```
@@ -26,7 +34,7 @@ gsutil 4.46
 kubectl 2019.12.17
 ```
 
-+ gcloud コマンドの設定を先に作成します。
++ :package: gcloud コマンドの設定を先に作成します。
   + 本家では `us-west1-c` をデフォルトにしているが、東京リージョン `asia-` に変更します。
 
 ```
@@ -37,7 +45,7 @@ gcloud config set compute/region asia-northeast1
 gcloud config set compute/zone asia-northeast1-c
 ```
 
-+ gcloud の設定を確認します。
++ :package: gcloud の設定を確認します。
 
 ```
 gcloud config configurations list
