@@ -1,5 +1,19 @@
 # Installing the Client Tools
 
+## 注意点
 
++ アイコンの説明
+  + :computer:
+    + ホストマシン
+  + :package:
+    + GCE
 
-WIP
+## このページで参考にする本家のページ
+
++ Installing the Client Tools
+  + https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/master/docs/02-client-tools.md
+
+## やること
+
++ :computer: gcloud コマンド以外のコマンドの準備
+  + cfssl, cfssljson, and kubectl.
