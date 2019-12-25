@@ -15,5 +15,5 @@
 
 ## やること
 
-+ :computer: gcloud コマンド以外のコマンドの準備
++ :package: gcloud コマンド以外のコマンドの準備
   + cfssl, cfssljson, and kubectl.
