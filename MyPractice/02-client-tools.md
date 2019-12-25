@@ -18,3 +18,15 @@
 + :package: gcloud コマンド以外のコマンドの準備します。
   + cfssl, cfssljson, and kubectl.
   + [Prepare](./00_prepare.md) で作成した GCE は Ubuntu を使用しているので、 Linux 用のインストール方法を使用します。
+
+### Install CFSSL
+
++ cfssl, cfssljson はコマンド
++ PKI インフラを構築する際に使い、 TLS 認証を使用するコマンドラインユーティリティ
+
+
+
+
+### Install kubectl
+
+WIP
