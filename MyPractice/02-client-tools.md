@@ -15,5 +15,6 @@
 
 ## やること
 
-+ :package: gcloud コマンド以外のコマンドの準備
++ :package: gcloud コマンド以外のコマンドの準備します。
   + cfssl, cfssljson, and kubectl.
+  + Prepare(./00_prepare.md) で作成した GCE は Ubuntu を使用しているので、 Linux 用のインストール方法を使用します。
