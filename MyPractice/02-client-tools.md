@@ -17,16 +17,50 @@
 
 + :package: gcloud コマンド以外のコマンドの準備します。
   + cfssl, cfssljson, and kubectl.
-  + [Prepare](./00_prepare.md) で作成した GCE は Ubuntu を使用しているので、 Linux 用のインストール方法を使用します。
+  + [Prepare](./00_prepare.md) で作成した VM は Ubuntu を使用しているので、 Linux 用のインストール方法を使用します。
 
-### Install CFSSL
+## GCE を起動します
 
-+ cfssl, cfssljson はコマンド
-+ PKI インフラを構築する際に使い、 TLS 認証を使用するコマンドラインユーティリティ
+[Prepare](./00_prepare.md) で作成した VM を gcloud コマンドで起動します。
+
++ :computer: GCP と認証を通します。
+
+```
+gcloud auth login
+```
+
++ :computer: gcloud コマンドの設定を行います。
+
+```
+gcloud config set project iganari-k8s-hardway-pre
+gcloud config set compute/zone asia-northeast1-c
+```
+
++ :computer: VM の起動を行います。
+
+```
+gcloud beta compute instances start kubernetes-the-hard-way-vm
+```
+
++ :computer: この GCE に SSH して作業を行います。
+  + ここで、 :package: での作業に切り替わります。
+
+```
+gcloud compute ssh kubernetes-the-hard-way-vm
+```
+
+## :computer: Install CFSSL
+
++ CFSSL コマンドとは
+  + CloudFlare が公開している PKI/TLS ツールキットです。
++ GitHub
+  + https://github.com/cloudflare/cfssl
++ ブログ
+  + https://blog.cloudflare.com/introducing-cfssl/
+
+Linux 用のインストールを行っていきます。
 
 
-
-
-### Install kubectl
+## Install kubectl
 
 WIP
