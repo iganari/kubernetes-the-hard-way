@@ -1,4 +1,4 @@
-# Provisioning Compute Resources
+# 03. Provisioning Compute Resources
 
 ## 注意点
 
