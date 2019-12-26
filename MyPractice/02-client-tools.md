@@ -55,7 +55,20 @@ gcloud compute ssh kubernetes-the-hard-way-vm
 su - iganari
 ```
 
-+ :package: 
+
+
+## :computer: Install CFSSL
+
++ CFSSL コマンドとは
+  + CloudFlare が公開している PKI/TLS ツールキットです。
++ GitHub
+  + https://github.com/cloudflare/cfssl
++ ブログ
+  + https://blog.cloudflare.com/introducing-cfssl/
+
+Linux 用のインストールを行っていきます。
+
++ :package: バイナリをインターネット上からダウロードします。
 
 ```
 wget -q --show-progress --https-only --timestamping \
@@ -103,18 +116,6 @@ Version: 1.3.4
 Revision: dev
 Runtime: go1.13
 ```
-
-## :computer: Install CFSSL
-
-+ CFSSL コマンドとは
-  + CloudFlare が公開している PKI/TLS ツールキットです。
-+ GitHub
-  + https://github.com/cloudflare/cfssl
-+ ブログ
-  + https://blog.cloudflare.com/introducing-cfssl/
-
-Linux 用のインストールを行っていきます。
-
 
 ## Install kubectl
 
