@@ -148,3 +148,23 @@ $ kubectl version
 Client Version: version.Info{Major:"1", Minor:"17", GitVersion:"v1.17.0", GitCommit:"70132b0f130acc0bed193d9ba59dd186f0e634cf", GitTreeState:"clean", BuildDate:"2019-12-07T21:20:10Z", GoVersion:"go1.13.4", Compiler:"gc", Platform:"linux/amd64"}
 The connection to the server localhost:8080 was refused - did you specify the right host or port?
 ```
+
+## 作業が終わったら、 GCE は停止しておきましょう
+
++ :package: GCE から SSH ログアウト
+
+```
+exit
+```
+
++ :computer: GCE の停止コマンド
+
+```
+gcloud beta compute instances stop kubernetes-the-hard-way-vm
+```
+
+## 次のステップへ :rocket:
+
+ここまでで、 02. Installing the Client Tools が完了です :raised_hands:
+
+次は [Provisioning Compute Resources: WIP](./03-provisioning-compute-resources.md) に進みます!! :muscle:
