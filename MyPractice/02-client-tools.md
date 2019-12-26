@@ -138,6 +138,8 @@ sudo mv kubectl /usr/local/bin/
 
 ```
 kubectl version
+OR
+kubectl version --client
 ```
 ```
 ### 例
