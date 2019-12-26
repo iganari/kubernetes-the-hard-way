@@ -82,13 +82,6 @@ wget -q --show-progress --https-only --timestamping \
 chmod +x cfssl cfssljson
 ```
 
-+ :package: PATH が通っているディレクトリに移動させます。
-
-```
-sudo mv cfssl cfssljson /usr/local/bin/
-
-```
-
 + :package: cfssl が実行出来るか確認をします。
 
 ```
@@ -119,4 +112,38 @@ Runtime: go1.13
 
 ## Install kubectl
 
-WIP
++ kubectl コマンドとは
+  + Kubernetes API サーバにコマンドを実行する CLI ツールです。
+
++ :package: バイナリをインターネット上からダウロードします。
+  + 最新版のダウンロード方法 : [Install kubectl on Linux](https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-on-linux)
+
+```
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+```
+
++ :package: `kubectl` に実行権限を付与します。
+
+```
+chmod +x kubectl
+```
+
++ :package: PATH が通っているディレクトリに移動させます。
+
+```
+sudo mv kubectl /usr/local/bin/
+```
+
++ :package: kubectl が実行出来るか確認をします。
+
+```
+kubectl --version
+```
+```
+### 例
+
+$ cfssljson --version
+Version: 1.3.4
+Revision: dev
+Runtime: go1.13
+```
