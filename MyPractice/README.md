@@ -6,4 +6,4 @@
 
 + 00 [Prepare: 準備](./00_prepare.md)
 + 01 [Prerequisites: 前提条件](./01-prerequisites.md)
-+ 02 [WIP](./02-client-tools.md)
++ 02 [Installing the Client Tools: クライアントツールのインストール](./02-client-tools.md)
