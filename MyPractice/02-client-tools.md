@@ -137,13 +137,12 @@ sudo mv kubectl /usr/local/bin/
 + :package: kubectl が実行出来るか確認をします。
 
 ```
-kubectl --version
+kubectl version
 ```
 ```
 ### 例
 
-$ cfssljson --version
-Version: 1.3.4
-Revision: dev
-Runtime: go1.13
+$ kubectl version
+Client Version: version.Info{Major:"1", Minor:"17", GitVersion:"v1.17.0", GitCommit:"70132b0f130acc0bed193d9ba59dd186f0e634cf", GitTreeState:"clean", BuildDate:"2019-12-07T21:20:10Z", GoVersion:"go1.13.4", Compiler:"gc", Platform:"linux/amd64"}
+The connection to the server localhost:8080 was refused - did you specify the right host or port?
 ```
