@@ -49,6 +49,41 @@ gcloud beta compute instances start kubernetes-the-hard-way-vm
 gcloud compute ssh kubernetes-the-hard-way-vm
 ```
 
++ :package: 
+
+```
+wget -q --show-progress --https-only --timestamping \
+  https://storage.googleapis.com/kubernetes-the-hard-way/cfssl/linux/cfssl \
+  https://storage.googleapis.com/kubernetes-the-hard-way/cfssl/linux/cfssljson
+```
+
++ :package: `cfssl` `cfssljson` に実行権限を付与します。
+
+```
+chmod +x cfssl cfssljson
+```
+
++ :package: PATH が通っているディレクトリに移動させます。
+
+```
+sudo mv cfssl cfssljson /usr/local/bin/
+
+```
+
++ 実行出来るか確認をします。
+
+```
+cfssl version
+```
+```
+### 例
+
+$ cfssl version
+Version: 1.3.4
+Revision: dev
+Runtime: go1.13
+```
+
 ## :computer: Install CFSSL
 
 + CFSSL コマンドとは
