@@ -49,6 +49,12 @@ gcloud beta compute instances start kubernetes-the-hard-way-vm
 gcloud compute ssh kubernetes-the-hard-way-vm
 ```
 
++ :package: 作業ユーザ(iganari)を変更します。
+
+```
+su - iganari
+```
+
 + :package: 
 
 ```
@@ -70,7 +76,7 @@ sudo mv cfssl cfssljson /usr/local/bin/
 
 ```
 
-+ 実行出来るか確認をします。
++ :package: cfssl が実行出来るか確認をします。
 
 ```
 cfssl version
@@ -79,6 +85,20 @@ cfssl version
 ### 例
 
 $ cfssl version
+Version: 1.3.4
+Revision: dev
+Runtime: go1.13
+```
+
++ :package: cfssljson が実行出来るか確認をします。
+
+```
+cfssljson --version
+```
+```
+### 例
+
+$ cfssljson --version
 Version: 1.3.4
 Revision: dev
 Runtime: go1.13
