@@ -220,7 +220,6 @@ gcloud compute ssh controller-0
 exit
 ```
 
-
 ## 次のステップへ :rocket:
 
 ここまでで、 03. Provisioning Compute Resources が完了です :raised_hands:
