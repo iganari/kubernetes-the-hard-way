@@ -213,3 +213,16 @@ gcloud compute instances list
 
 gcloud compute ssh controller-0
 ```
+
++ 無事に SSH ログインが出来たら、確認は以上です。
+
+```
+exit
+```
+
+
+## 次のステップへ :rocket:
+
+ここまでで、 03. Provisioning Compute Resources が完了です :raised_hands:
+
+次は [WIP](WIP) に進みます!! :muscle:
