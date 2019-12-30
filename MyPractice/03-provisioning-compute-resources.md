@@ -166,3 +166,38 @@ for i in 0 1 2; do
     --tags kubernetes-the-hard-way,controller
 done
 ```
+
+
+### Kubernetes の worker node になるインスタンスを作成
+
++ 3台作成するために Bash の for 文を用いて、一気に作成します。
+
+```
+for i in 0 1 2; do
+  gcloud compute instances create worker-${i} \
+    --async \
+    --boot-disk-size 200GB \
+    --can-ip-forward \
+    --image-family ubuntu-1804-lts \
+    --image-project ubuntu-os-cloud \
+    --machine-type n1-standard-1 \
+    --metadata pod-cidr=10.200.${i}.0/24 \
+    --private-network-ip 10.240.0.2${i} \
+    --scopes compute-rw,storage-ro,service-management,service-control,logging-write,monitoring \
+    --subnet kubernetes \
+    --tags kubernetes-the-hard-way,worker
+done
+```
+
+### 確認
+
++ 作成したインスタンスを確認します
+
+```
+gcloud compute instances list
+```
+```
+### 例
+
+
+```
