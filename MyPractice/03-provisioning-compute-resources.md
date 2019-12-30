@@ -16,6 +16,9 @@
 ## やること
 
 + WIP
+  + K8s は K8s のコントロールプレーンのマシンと、コンテナを実行するワーカーノードが必要になります。
+  + セキュアで高可用性の Kubernetes クラスタを 1つの Zone 内 で作成ます
+
 
 ## GCE を起動します
 
@@ -52,4 +55,8 @@ gcloud compute ssh kubernetes-the-hard-way-vm
 ```
 su - iganari
 ```
+
+## ネットワークを作る
+
+この
 
