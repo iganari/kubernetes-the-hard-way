@@ -126,7 +126,7 @@ kubernetes-the-hard-way-allow-internal  kubernetes-the-hard-way  INGRESS    1000
 ### 静的外部 IP アドレスを予約
 
 + VPC network の `デフォルト` 内に、静的外部 IP アドレスを予約します。
-  + VM にアタッチしないと :moneybag: 課金が発生します
+  + :moneybag: VM にアタッチしないと課金が発生します
 
 
 
