@@ -128,9 +128,41 @@ kubernetes-the-hard-way-allow-internal  kubernetes-the-hard-way  INGRESS    1000
 + VPC network の `デフォルト` 内に、静的外部 IP アドレスを予約します。
   + :moneybag: VM にアタッチしないと課金が発生します
 
+```
+### WIP
+gcloud compute addresses create kubernetes-the-hard-way \
+  --region $(gcloud config get-value compute/region)
+```
 
++ 確認コマンド
 
+```
+gcloud compute addresses list --filter="name=('kubernetes-the-hard-way')"
+```
+```
+### 例
 
+WIP
+```
 
+## GCE を構築
 
+### Kubernetes の コントロールプレーンになるインスタンスを作成します。
 
++ 3台作成するために Bash の for 文を用いて、一気に作成します。
+
+```
+for i in 0 1 2; do
+  gcloud compute instances create controller-${i} \
+    --async \
+    --boot-disk-size 200GB \
+    --can-ip-forward \
+    --image-family ubuntu-1804-lts \
+    --image-project ubuntu-os-cloud \
+    --machine-type n1-standard-1 \
+    --private-network-ip 10.240.0.1${i} \
+    --scopes compute-rw,storage-ro,service-management,service-control,logging-write,monitoring \
+    --subnet kubernetes \
+    --tags kubernetes-the-hard-way,controller
+done
+```
