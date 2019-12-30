@@ -82,3 +82,15 @@ gcloud compute networks subnets create kubernetes \
 ```
 
 ### Firewall Rule
+
++ 内部ネットワーク用の Firewall Rule を作成します。
+  + 対象プロトコルは、 `TCP` , `UDP` , `ICMP`
+  + 適用範囲は VPC network の `kubernetes-the-hard-way` のみ
+  + 送信元として許可する IP アドレスの範囲は、 `10.240.0.0/24` , `10.200.0.0/16`
+
+```
+gcloud compute firewall-rules create kubernetes-the-hard-way-allow-internal \
+  --allow tcp,udp,icmp \
+  --network kubernetes-the-hard-way \
+  --source-ranges 10.240.0.0/24,10.200.0.0/16
+```
