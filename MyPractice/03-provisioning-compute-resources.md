@@ -109,12 +109,19 @@ gcloud compute firewall-rules create kubernetes-the-hard-way-allow-external \
   --source-ranges 0.0.0.0/0
 ```
 
++ 作成した Firewall Rule を確認します。
 
+```
+gcloud compute firewall-rules list --filter="network:kubernetes-the-hard-way"
+```
+```
+### 例
 
-
-
-
-
+$ gcloud compute firewall-rules list --filter="network:kubernetes-the-hard-way"
+NAME                                    NETWORK                  DIRECTION  PRIORITY  ALLOW                 DENY  DISABLED
+kubernetes-the-hard-way-allow-external  kubernetes-the-hard-way  INGRESS    1000      tcp:22,tcp:6443,icmp        False
+kubernetes-the-hard-way-allow-internal  kubernetes-the-hard-way  INGRESS    1000      tcp,udp,icmp                False
+```
 
 
 
