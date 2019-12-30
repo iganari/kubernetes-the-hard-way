@@ -123,8 +123,10 @@ kubernetes-the-hard-way-allow-external  kubernetes-the-hard-way  INGRESS    1000
 kubernetes-the-hard-way-allow-internal  kubernetes-the-hard-way  INGRESS    1000      tcp,udp,icmp                False
 ```
 
+### 静的外部 IP アドレスを予約
 
-
++ VPC network の `デフォルト` 内に、静的外部 IP アドレスを予約します。
+  + VM にアタッチしないと :moneybag: 課金が発生します
 
 
 
