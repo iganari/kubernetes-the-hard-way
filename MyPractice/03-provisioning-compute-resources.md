@@ -94,3 +94,34 @@ gcloud compute firewall-rules create kubernetes-the-hard-way-allow-internal \
   --network kubernetes-the-hard-way \
   --source-ranges 10.240.0.0/24,10.200.0.0/16
 ```
+
++ 外部からの通信を許可する Firewall Rule を作成します。
+  + 対象プロトコルとポートは、 `TCPの 22番ポート` , `TCP の6443番ポート` , `ICMP`
+    + 22 番ポートは SSH ログイン用
+    + 6443 番ポートは Kubernetes の API サーバ 用 [Controlling Access to the Kubernetes API](https://kubernetes.io/docs/reference/access-authn-authz/controlling-access/)
+    + 元のドキュメントにも書いてあります
+      + `An external load balancer will be used to expose the Kubernetes API Servers to remote clients.`
+
+```
+gcloud compute firewall-rules create kubernetes-the-hard-way-allow-external \
+  --allow tcp:22,tcp:6443,icmp \
+  --network kubernetes-the-hard-way \
+  --source-ranges 0.0.0.0/0
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
