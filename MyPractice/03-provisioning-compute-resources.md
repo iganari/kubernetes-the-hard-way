@@ -56,7 +56,21 @@ gcloud compute ssh kubernetes-the-hard-way-vm
 su - iganari
 ```
 
-## ネットワークを作る
+## ネットワークを作成する
 
-この
++ `kubernetes-the-hard-way` という名前の VPC ネットワークを作成します。
+  + 余計なサブネットを作成しないように、 `--subnet-mode custom` オプションを使用します。
 
+```
+gcloud compute networks create kubernetes-the-hard-way \
+  --subnet-mode custom
+```
+
++ 上記で作成した VPC ネットワーク内にサブネットを作成します。
+  + プライベート IP アドレスは `--range` にて指定します。
+
+```
+gcloud compute networks subnets create kubernetes \
+  --network kubernetes-the-hard-way \
+  --range 10.240.0.0/24
+```
