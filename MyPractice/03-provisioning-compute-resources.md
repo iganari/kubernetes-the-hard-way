@@ -15,4 +15,41 @@
 
 ## やること
 
-+ WIP 
++ WIP
+
+## GCE を起動します
+
+[Prepare](./00_prepare.md) で作成した VM を gcloud コマンドで起動します。
+
++ :computer: GCP と認証を通します。
+
+```
+gcloud auth login
+```
+
++ :computer: gcloud コマンドの設定を行います。
+
+```
+gcloud config set project iganari-k8s-hardway-pre
+gcloud config set compute/zone asia-northeast1-c
+```
+
++ :computer: VM の起動を行います。
+
+```
+gcloud beta compute instances start kubernetes-the-hard-way-vm
+```
+
++ :computer: この GCE に SSH して作業を行います。
+  + ここで、 :package: での作業に切り替わります。
+
+```
+gcloud compute ssh kubernetes-the-hard-way-vm
+```
+
++ :package: 作業ユーザ(iganari)を変更します。
+
+```
+su - iganari
+```
+
