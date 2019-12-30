@@ -171,6 +171,7 @@ done
 ### Kubernetes の worker node になるインスタンスを作成
 
 + 3台作成するために Bash の for 文を用いて、一気に作成します。
+  + metadata に注意
 
 ```
 for i in 0 1 2; do
@@ -192,6 +193,7 @@ done
 ### 確認
 
 + 作成したインスタンスを確認します
+  + 正常に出来ていれば、 controller-0 ~ controller-2, worker-0 ~ worker-2 が出来ています。
 
 ```
 gcloud compute instances list
@@ -200,4 +202,14 @@ gcloud compute instances list
 ### 例
 
 
+```
+
+## SSH ログイン
+
++ 作成したインスタンスに gcloud 経由で SSH ログインしてみます。
+
+```
+### 例
+
+gcloud compute ssh controller-0
 ```
