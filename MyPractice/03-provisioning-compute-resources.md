@@ -225,4 +225,4 @@ exit
 
 ここまでで、 03. Provisioning Compute Resources が完了です :raised_hands:
 
-次は [WIP](WIP) に進みます!! :muscle:
+次は [Provisioning a CA and Generating TLS Certificates](./04-certificate-authority.md) に進みます!! :muscle:
