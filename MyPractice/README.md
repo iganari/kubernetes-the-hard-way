@@ -15,4 +15,4 @@
 + 01 [Prerequisites: 前提条件](./01-prerequisites.md)
 + 02 [Installing the Client Tools: クライアントツールのインストール](./02-client-tools.md)
 + 03 [Provisioning Compute Resources](./03-provisioning-compute-resources.md)
-
++ 04 [Provisioning a CA and Generating TLS Certificates](./04-certificate-authority.md)
