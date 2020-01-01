@@ -17,3 +17,13 @@
 + 02 [Installing the Client Tools: クライアントツールのインストール](./02-client-tools.md)
 + 03 [Provisioning Compute Resources](./03-provisioning-compute-resources.md)
 + 04 [Provisioning a CA and Generating TLS Certificates](./04-certificate-authority.md)
++ 05 Generating Kubernetes Configuration Files for Authentication
++ 06 Generating the Data Encryption Config and Key
++ 07 Bootstrapping the etcd Cluster
++ 08 Bootstrapping the Kubernetes Control Plane
++ 09 Bootstrapping the Kubernetes Worker Nodes
++ 10 Configuring kubectl for Remote Access
++ 11 Provisioning Pod Network Routes
++ 12 Deploying the DNS Cluster Add-on
++ 13 Smoke Test
++ 14 Cleaning Up
