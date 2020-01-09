@@ -15,5 +15,48 @@
 
 ## やること
 
-+ 鍵の作成
++ cfssl コマンドを持ちいて、鍵の作成
 + 作成した鍵を VM に転送
+
+## 鍵作成
+
+```
+vim ca-config.json
+```
+```
+{
+  "signing": {
+    "default": {
+      "expiry": "8760h"
+    },
+    "profiles": {
+      "kubernetes": {
+        "usages": ["signing", "key encipherment", "server auth", "client auth"],
+        "expiry": "8760h"
+      }
+    }
+  }
+}
+```
+
+```
+vim ca-csr.json
+```
+```
+{
+  "CN": "Kubernetes",
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "C": "US",
+      "L": "Portland",
+      "O": "Kubernetes",
+      "OU": "CA",
+      "ST": "Oregon"
+    }
+  ]
+}
+```
