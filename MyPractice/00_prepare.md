@@ -17,11 +17,16 @@
 
 + 実行環境を隔離するために、 VM を作成します。
 + 作成する GCE
-  + プロジェクト: iganari-k8s-hardway-pre
-  + ネットワーク: デフォルトの VPC ネットワーク
-  + name: kubernetes-the-hard-way-manual
+  + プロジェクト
+    + iganari-k8s-hardway-pre
+  + ネットワーク
+    + デフォルトの VPC ネットワーク
+  + name
+    + kubernetes-the-hard-way-manual
 
 + :computer: GCP と認証を通します。
+  + ホストマシンに gcloud コマンドを入れたくない場合は下記を使用して下さい
+  + https://github.com/iganari/multi-cli
 
 ```
 gcloud auth login
