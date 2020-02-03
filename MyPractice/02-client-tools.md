@@ -165,4 +165,4 @@ gcloud beta compute instances stop kubernetes-the-hard-way-vm
 
 ここまでで、 02. Installing the Client Tools が完了です :raised_hands:
 
-次は [Provisioning Compute Resources: WIP](./03-provisioning-compute-resources.md) に進みます!! :muscle:
+次は [Provisioning Compute Resources](./03-provisioning-compute-resources.md) に進みます!! :muscle:
