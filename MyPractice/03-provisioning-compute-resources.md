@@ -19,7 +19,6 @@
 
 ## 作業
 
-
 <details>
 <summary>(不要な場合はスキップ) GCE を起動します。</summary>
 
