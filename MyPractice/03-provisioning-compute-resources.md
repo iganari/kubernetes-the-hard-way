@@ -226,6 +226,26 @@ gcloud compute ssh controller-0
 exit
 ```
 
+<details>
+<summary>(不要な場合はスキップ) 作業が終わったら、 GCE は停止しておきましょう。。</summary>
+
+## 作業が終わったら、 GCE は停止しておきましょう。
+
++ :package: GCE から SSH ログアウト
+
+```
+exit
+```
+
++ :computer: GCE の停止コマンド
+
+```
+gcloud beta compute instances stop kubernetes-the-hard-way-vm
+```
+
+</details>
+
+
 ## 次のステップへ :rocket:
 
 ここまでで、 03. Provisioning Compute Resources が完了です :raised_hands:
