@@ -7,7 +7,12 @@
 アイコン | 説明
 :-: | :-
 :computer: | ホストマシン
-:package: | Google Compute Engine 上に作成した Virtual Machine
+:package: | Google Compute Engine (GCE) 上に作成した Virtual Machine (VM)
+
+## この章でやること
+
++ GCE 上に作業用の VM を構築します。
+
 
 ## GCP プロジェクト
 
