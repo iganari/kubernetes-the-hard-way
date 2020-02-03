@@ -3,10 +3,11 @@
 ## 注意点
 
 + アイコンの説明
-  + :computer:
-    + ホストマシン
-  + :package:
-    + GCE
+
+アイコン | 説明
+:-: | :-
+:computer: | ホストマシン
+:package: | Google Compute Engine 上に作成した Virtual Machine
 
 ## GCP プロジェクト
 
