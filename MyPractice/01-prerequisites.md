@@ -3,17 +3,19 @@
 ## 注意点
 
 + アイコンの説明
-  + :computer:
-    + ホストマシン
-  + :package:
-    + GCE
 
-## このページで参考にする本家のページ
+アイコン | 説明
+:-: | :-
+:computer: | ホストマシン
+:package: | Google Compute Engine (GCE) 上に作成した Virtual Machine (VM)
 
-+ Prerequisites
+## この章でやること
+
++ gcloud コマンドの簡単な設定を行います。
++ このページで参考にする本家のページ
   + https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/master/docs/01-prerequisites.md
 
-## やること
+## 作業
 
 + :package: gcloud コマンドの準備
   + Google Cloud SDK のバージョンが 262.0.0 より高いことを確認します。
