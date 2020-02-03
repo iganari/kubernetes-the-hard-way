@@ -132,7 +132,8 @@ kubernetes-the-hard-way-allow-internal  kubernetes-the-hard-way  INGRESS    1000
 ### 静的外部 IP アドレスを予約
 
 + :package: VPC network の `デフォルト` 内に、静的外部 IP アドレスを予約します。
-  + :moneybag: VM にアタッチしないと課金が発生します
+  + ~~:moneybag: VM にアタッチしないと課金が発生します~~
+  + :moneybag: 2020年1月より、VM にアタッチしていても有料の対象となりました。
 
 ```
 ### WIP
