@@ -60,7 +60,7 @@ su - iganari
 
 </details>
 
-## :computer: CFSSL コマンドを VM にインストールします。
+## CFSSL コマンドを VM にインストールします。
 
 + CFSSL コマンドとは
   + CloudFlare が公開している PKI/TLS ツールキットです。
