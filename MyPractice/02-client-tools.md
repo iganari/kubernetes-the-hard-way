@@ -3,23 +3,23 @@
 ## 注意点
 
 + アイコンの説明
-  + :computer:
-    + ホストマシン
-  + :package:
-    + GCE
 
-## このページで参考にする本家のページ
+アイコン | 説明
+:-: | :-
+:computer: | ホストマシン
+:package: | Google Compute Engine (GCE) 上に作成した Virtual Machine (VM)
 
+## この章でやること
+
++ gcloud コマンド以外のコマンドの準備します。
+  + cfssl, cfssljson, and kubectl.
+  + [Prepare](./00_prepare.md) で作成した VM は Ubuntu を使用しているので、 Linux 用のインストール方法を使用します。
 + Installing the Client Tools
   + https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/master/docs/02-client-tools.md
 
-## やること
+## 作業
 
-+ :package: gcloud コマンド以外のコマンドの準備します。
-  + cfssl, cfssljson, and kubectl.
-  + [Prepare](./00_prepare.md) で作成した VM は Ubuntu を使用しているので、 Linux 用のインストール方法を使用します。
-
-## GCE を起動します
+## (不要な場合はスキップ) GCE を起動します。
 
 [Prepare](./00_prepare.md) で作成した VM を gcloud コマンドで起動します。
 
@@ -55,9 +55,7 @@ gcloud compute ssh kubernetes-the-hard-way-vm
 su - iganari
 ```
 
-
-
-## :computer: Install CFSSL
+## :computer: CFSSL コマンドを VM にインストールします。
 
 + CFSSL コマンドとは
   + CloudFlare が公開している PKI/TLS ツールキットです。
@@ -110,7 +108,7 @@ Revision: dev
 Runtime: go1.13
 ```
 
-## Install kubectl
+## kubectl コマンドを VM にインストールします。
 
 + kubectl コマンドとは
   + Kubernetes API サーバにコマンドを実行する CLI ツールです。
@@ -149,7 +147,7 @@ Client Version: version.Info{Major:"1", Minor:"17", GitVersion:"v1.17.0", GitCom
 The connection to the server localhost:8080 was refused - did you specify the right host or port?
 ```
 
-## 作業が終わったら、 GCE は停止しておきましょう
+## (不要な場合はスキップ) 作業が終わったら、 GCE は停止しておきましょう。
 
 + :package: GCE から SSH ログアウト
 
