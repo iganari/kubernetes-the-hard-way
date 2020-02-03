@@ -19,6 +19,9 @@
 
 ## 作業
 
+<details>
+<summary>(不要な場合はスキップ) GCE を起動します。</summary>
+
 ## (不要な場合はスキップ) GCE を起動します。
 
 [Prepare](./00_prepare.md) で作成した VM を gcloud コマンドで起動します。
@@ -54,6 +57,8 @@ gcloud compute ssh kubernetes-the-hard-way-vm
 ```
 su - iganari
 ```
+
+</details>
 
 ## :computer: CFSSL コマンドを VM にインストールします。
 
@@ -147,6 +152,9 @@ Client Version: version.Info{Major:"1", Minor:"17", GitVersion:"v1.17.0", GitCom
 The connection to the server localhost:8080 was refused - did you specify the right host or port?
 ```
 
+<details>
+<summary>(不要な場合はスキップ) (不要な場合はスキップ) 作業が終わったら、 GCE は停止しておきましょう。。</summary>
+
 ## (不要な場合はスキップ) 作業が終わったら、 GCE は停止しておきましょう。
 
 + :package: GCE から SSH ログアウト
@@ -160,6 +168,8 @@ exit
 ```
 gcloud beta compute instances stop kubernetes-the-hard-way-vm
 ```
+
+</details>
 
 ## 次のステップへ :rocket:
 
