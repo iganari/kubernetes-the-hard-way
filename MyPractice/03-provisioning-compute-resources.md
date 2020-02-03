@@ -62,7 +62,7 @@ su - iganari
 </details>
 
 
-## ネットワークを作成する
+## 1. ネットワークを作成する
 
 ### VPC ネットワーク
 
@@ -151,7 +151,7 @@ gcloud compute addresses list --filter="name=('kubernetes-the-hard-way')"
 WIP
 ```
 
-## GCE を構築
+## 2. GCE を構築
 
 ### Kubernetes の コントロールプレーンになるインスタンスを作成します。
 
@@ -210,7 +210,7 @@ gcloud compute instances list
 WIP
 ```
 
-## SSH ログイン
+## 3. SSH ログイン
 
 + :package: 作成したインスタンスに gcloud 経由で SSH ログインしてみます。
 
