@@ -251,4 +251,4 @@ gcloud beta compute instances stop kubernetes-the-hard-way-vm
 
 ここまでで、 03. Provisioning Compute Resources が完了です :raised_hands:
 
-次は [Provisioning a CA and Generating TLS Certificates](./04-certificate-authority.md) に進みます!! :muscle:
+次は [04. Provisioning a CA and Generating TLS Certificates](./04-certificate-authority.md) に進みます!! :muscle:
