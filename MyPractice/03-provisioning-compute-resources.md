@@ -79,7 +79,7 @@ export _region='asia-northeast1'
 
 ```
 gcloud compute networks create kubernetes-the-hard-way \
-    --project ${_project}
+    --project ${_project} \
     --subnet-mode custom
 ```
 
