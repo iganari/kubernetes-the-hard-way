@@ -63,18 +63,25 @@ su - iganari
 
 ## 1. ネットワークを作成する
 
-### VPC ネットワーク
+### :computer: 変数を入れておく
+
+```
+export _project='iganari-k8s-hardway-pre'
+export _region='asia-northeast1'
+```
+
+### :computer: VPC ネットワークの作成
 
 + :package: `kubernetes-the-hard-way` という名前の VPC ネットワークを作成します。
   + 余計なサブネットを作成しないように、 `--subnet-mode custom` オプションを使用します。
 
 ```
 gcloud compute networks create kubernetes-the-hard-way \
-    --project iganari-k8s-hardway-pre
+    --project ${_project}
     --subnet-mode custom
 ```
 
-### サブネット
+### :computer: サブネットの作成
 
 + :package: 上記で作成した VPC ネットワーク内にサブネットを作成します。
   + プライベート IP アドレスは `--range` にて指定します。
@@ -84,10 +91,10 @@ gcloud compute networks create kubernetes-the-hard-way \
 gcloud compute networks subnets create kubernetes \
     --network kubernetes-the-hard-way \
     --range 10.240.0.0/24 \
-    --region asia-northeast1
+    --region ${_region}
 ```
 
-### Firewall Rule
+### Firewall Rule の作成
 
 + :package: 内部ネットワーク用の Firewall Rule を作成します。
   + 対象プロトコルは、 `TCP` , `UDP` , `ICMP`
