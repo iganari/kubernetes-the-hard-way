@@ -145,9 +145,8 @@ kubernetes-the-hard-way-allow-internal  kubernetes-the-hard-way  INGRESS    1000
   + :moneybag: 2020年1月より、VM にアタッチしていても有料の対象となりました。
 
 ```
-### WIP
 gcloud compute addresses create kubernetes-the-hard-way \
-  --region $(gcloud config get-value compute/region)
+    --region ${_region}
 ```
 
 + :package: 確認コマンド
@@ -158,7 +157,9 @@ gcloud compute addresses list --filter="name=('kubernetes-the-hard-way')"
 ```
 ### 例
 
-WIP
+$ gcloud compute addresses list --filter="name=('kubernetes-the-hard-way')"
+NAME                     ADDRESS/RANGE  TYPE      PURPOSE  NETWORK  REGION           SUBNET  STATUS
+kubernetes-the-hard-way  34.84.1.43     EXTERNAL                    asia-northeast1          RESERVED
 ```
 
 ## 2. GCE を構築
@@ -217,7 +218,14 @@ gcloud compute instances list
 ```
 ### 例
 
-WIP
+$ gcloud compute instances list
+NAME                        ZONE               MACHINE_TYPE   PREEMPTIBLE  INTERNAL_IP  EXTERNAL_IP     STATUS
+controller-0                asia-northeast1-c  n1-standard-1               10.240.0.10  34.84.30.205    RUNNING
+controller-1                asia-northeast1-c  n1-standard-1               10.240.0.11  34.84.209.211   RUNNING
+controller-2                asia-northeast1-c  n1-standard-1               10.240.0.12  34.84.200.54    RUNNING
+worker-0                    asia-northeast1-c  n1-standard-1               10.240.0.20  35.243.89.75    RUNNING
+worker-1                    asia-northeast1-c  n1-standard-1               10.240.0.21  34.84.118.159   RUNNING
+worker-2                    asia-northeast1-c  n1-standard-1               10.240.0.22  35.221.77.136   RUNNING
 ```
 
 ## 3. SSH ログイン
