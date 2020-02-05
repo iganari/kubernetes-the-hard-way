@@ -63,14 +63,16 @@ su - iganari
 
 ## 1. ネットワークを作成する
 
-### :computer: 変数を入れておく
+### 変数を入れておく
+
++ :package: 繰り返し出てくるので先に設定をしておきます。
 
 ```
 export _project='iganari-k8s-hardway-pre'
 export _region='asia-northeast1'
 ```
 
-### :computer: VPC ネットワークの作成
+### VPC ネットワークの作成
 
 + :package: `kubernetes-the-hard-way` という名前の VPC ネットワークを作成します。
   + 余計なサブネットを作成しないように、 `--subnet-mode custom` オプションを使用します。
