@@ -3,10 +3,16 @@
 ## 注意点
 
 + アイコンの説明
-  + :computer:
-    + ホストマシン
-  + :package:
-    + GCE
+
+アイコン | 説明
+:-: | :-
+:computer: | ホストマシン
+:package: | Google Compute Engine (GCE) 上に作成した Virtual Machine (VM)
+
+## この章でやること
+
++ GCE 上に作業用の VM を構築します。
+
 
 ## GCP プロジェクト
 
@@ -17,11 +23,16 @@
 
 + 実行環境を隔離するために、 VM を作成します。
 + 作成する GCE
-  + プロジェクト: iganari-k8s-hardway-pre
-  + ネットワーク: デフォルトの VPC ネットワーク
-  + name: kubernetes-the-hard-way-manual
+  + プロジェクト
+    + iganari-k8s-hardway-pre
+  + ネットワーク
+    + デフォルトの VPC ネットワーク
+  + name
+    + kubernetes-the-hard-way-manual
 
 + :computer: GCP と認証を通します。
+  + ホストマシンに gcloud コマンドを入れたくない場合は下記を使用して下さい
+  + https://github.com/iganari/multi-cli
 
 ```
 gcloud auth login
