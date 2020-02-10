@@ -442,3 +442,97 @@ kube-scheduler.pem
 ```
 
 ### API Server 用の CA 証明書とキーファイルを作成します。
+
++ 静的 IP アドレスの確認
+
+```
+gcloud compute addresses list --filter="name=('kubernetes-the-hard-way')"
+```
+```
+### 例
+
+$ gcloud compute addresses list --filter="name=('kubernetes-the-hard-way')"
+NAME                     ADDRESS/RANGE  TYPE      PURPOSE  NETWORK  REGION           SUBNET  STATUS
+kubernetes-the-hard-way  34.84.1.43     EXTERNAL                    asia-northeast1          RESERVED
+```
+
++ (上記の結果を元に) region の設定し、変数を入れる
+
+```
+gcloud config set compute/region asia-northeast1
+```
+```
+KUBERNETES_PUBLIC_ADDRESS=$(gcloud compute addresses describe kubernetes-the-hard-way \
+  --region $(gcloud config get-value compute/region) \
+  --format 'value(address)')
+
+KUBERNETES_HOSTNAMES=kubernetes,kubernetes.default,kubernetes.default.svc,kubernetes.default.svc.cluster,kubernetes.svc.cluster.local
+```
+```
+cat > kubernetes-csr.json <<EOF
+{
+  "CN": "kubernetes",
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "C": "US",
+      "L": "Portland",
+      "O": "Kubernetes",
+      "OU": "Kubernetes The Hard Way",
+      "ST": "Oregon"
+    }
+  ]
+}
+EOF
+```
+
++ 確認します
+
+```
+$ ls -1 | grep kubernetes
+kubernetes-csr.json
+kubernetes-key.pem
+kubernetes.csr
+kubernetes.pem
+```
+
+### service-account 用の CA 証明書とキーファイルを作成します。
+
+```
+cat > service-account-csr.json <<EOF
+{
+  "CN": "service-accounts",
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "C": "US",
+      "L": "Portland",
+      "O": "Kubernetes",
+      "OU": "Kubernetes The Hard Way",
+      "ST": "Oregon"
+    }
+  ]
+}
+EOF
+```
+```
+cfssl gencert \
+  -ca=ca.pem \
+  -ca-key=ca-key.pem \
+  -config=ca-config.json \
+  -profile=kubernetes \
+  service-account-csr.json | cfssljson -bare service-account
+```
+```
+$ ls -1 | grep service-account
+service-account-csr.json
+service-account-key.pem
+service-account.csr
+service-account.pem
+```
