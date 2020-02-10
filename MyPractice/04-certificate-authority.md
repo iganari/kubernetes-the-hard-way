@@ -550,3 +550,31 @@ for instance in controller-0 controller-1 controller-2; do
     service-account-key.pem service-account.pem ${instance}:~/
 done
 ```
+
+---> ここまで出来たらこの章は完了です。
+
+<details>
+<summary>(不要な場合はスキップ) 作業が終わったら、 GCE は停止しておきましょう。。</summary>
+
+## 作業が終わったら、 GCE は停止しておきましょう。
+
++ :package: GCE から SSH ログアウト
+
+```
+exit
+```
+
++ :computer: GCE の停止コマンド
+
+```
+gcloud beta compute instances stop kubernetes-the-hard-way-vm
+```
+
+</details>
+
+
+## 次のステップへ :rocket:
+
+ここまでで、 04. Provisioning a CA and Generating TLS Certificates が完了です :raised_hands:
+
+次は [hoge]() に進みます!! :muscle:
