@@ -68,9 +68,7 @@ su - iganari
 + CA の作成
 
 ```
-vim ca-config.json
-```
-```
+cat > ca-config.json <<EOF
 {
   "signing": {
     "default": {
@@ -89,9 +87,7 @@ vim ca-config.json
 + CA 証明書サインファイルの作成 
 
 ```
-vim ca-csr.json
-```
-```
+cat > ca-csr.json <<EOF
 {
   "CN": "Kubernetes",
   "key": {
@@ -137,9 +133,7 @@ ca.pem
 ### `admin` 用の 証明書とキーファイルを作成します。
 
 ```
-vim admin-csr.json
-```
-```
+cat > admin-csr.json <<EOF
 {
   "CN": "admin",
   "key": {
@@ -335,3 +329,116 @@ worker-2-key.pem
 worker-2.csr
 worker-2.pem
 ```
+
+### kube-controller-manager 用の CA 証明書とキーファイルを作成します。
+
+```
+cat > kube-controller-manager-csr.json <<EOF
+{
+  "CN": "system:kube-controller-manager",
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "C": "US",
+      "L": "Portland",
+      "O": "system:kube-controller-manager",
+      "OU": "Kubernetes The Hard Way",
+      "ST": "Oregon"
+    }
+  ]
+}
+```
+```
+cfssl gencert \
+  -ca=ca.pem \
+  -ca-key=ca-key.pem \
+  -config=ca-config.json \
+  -profile=kubernetes \
+  kube-controller-manager-csr.json | cfssljson -bare kube-controller-manager
+```
+
++ 確認
+
+```
+$ ls -1 | grep kube-controller-manager
+kube-controller-manager-csr.json
+kube-controller-manager-key.pem
+kube-controller-manager.csr
+kube-controller-manager.pem
+```
+
+### kube-proxy 用の CA 証明書とキーファイルを作成します。
+
+```
+cat > kube-proxy-csr.json <<EOF
+{
+  "CN": "system:kube-proxy",
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "C": "US",
+      "L": "Portland",
+      "O": "system:node-proxier",
+      "OU": "Kubernetes The Hard Way",
+      "ST": "Oregon"
+    }
+  ]
+}
+EOF
+```
+```
+cfssl gencert \
+  -ca=ca.pem \
+  -ca-key=ca-key.pem \
+  -config=ca-config.json \
+  -profile=kubernetes \
+  kube-proxy-csr.json | cfssljson -bare kube-proxy
+```
+
++ 確認
+
+```
+$ ls -1 | grep kube-proxy
+kube-proxy-csr.json
+kube-proxy-key.pem
+kube-proxy.csr
+kube-proxy.pem
+```
+
+### kube-scheduler 用の CA 証明書とキーファイルを作成します。
+
+```
+cat > kube-scheduler-csr.json <<EOF
+{
+  "CN": "system:kube-scheduler",
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "C": "US",
+      "L": "Portland",
+      "O": "system:kube-scheduler",
+      "OU": "Kubernetes The Hard Way",
+      "ST": "Oregon"
+    }
+  ]
+}
+EOF
+```
+```
+$ ls -1 | grep kube-scheduler
+kube-scheduler-csr.json
+kube-scheduler-key.pem
+kube-scheduler.csr
+kube-scheduler.pem
+```
+
+### API Server 用の CA 証明書とキーファイルを作成します。
