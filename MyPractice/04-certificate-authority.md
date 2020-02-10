@@ -1,6 +1,5 @@
 # 04. Provisioning a CA and Generating TLS Certificates
 
-
 ## 注意点
 
 + アイコンの説明
@@ -12,7 +11,7 @@
 
 ## この章でやること
 
-+ WIP
++ 主に 2 点
   + cfssl コマンドを持ちいて、鍵の作成
   + 作成した鍵を VM に転送
 + Provisioning a CA and Generating TLS Certificates
