@@ -61,7 +61,11 @@ su - iganari
 
 </details>
 
-## 1. 鍵作成
+## 1. 鍵作成 ([Certificate Authority](https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/master/docs/04-certificate-authority.md#certificate-authority))
+
+### `CA configuration file (CA)` , `certificate` , and `private key` を作成します。
+
++ CA の作成
 
 ```
 vim ca-config.json
@@ -81,6 +85,8 @@ vim ca-config.json
   }
 }
 ```
+
++ CA 証明書サインファイルの作成 
 
 ```
 vim ca-csr.json
@@ -102,4 +108,230 @@ vim ca-csr.json
     }
   ]
 }
+```
+
++ `cfssl` コマンドを用いて、 CA 証明書とキーファイルを作成します。
+
+```
+cfssl gencert -initca ca-csr.json | cfssljson -bare ca
+```
+```
+### 例
+
+$ cfssl gencert -initca ca-csr.json | cfssljson -bare ca
+2020/02/09 23:53:52 [INFO] generating a new CA key and certificate from CSR
+2020/02/09 23:53:52 [INFO] generate received request
+2020/02/09 23:53:52 [INFO] received CSR
+2020/02/09 23:53:52 [INFO] generating key: rsa-2048
+2020/02/09 23:53:52 [INFO] encoded CSR
+2020/02/09 23:53:52 [INFO] signed certificate with serial number 131245954278832858228666587662728120599709170889
+$
+$ ls -1
+ca-config.json
+ca-csr.json
+ca-key.pem
+ca.csr
+ca.pem
+```
+
+### `admin` 用の 証明書とキーファイルを作成します。
+
+```
+vim admin-csr.json
+```
+```
+{
+  "CN": "admin",
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "C": "US",
+      "L": "Portland",
+      "O": "system:masters",
+      "OU": "Kubernetes The Hard Way",
+      "ST": "Oregon"
+    }
+  ]
+}
+```
+
++ `cfssl` コマンドを用いて、 CA 証明書とキーファイルを作成します。
+  + 実行すると waring が出るが、ここでは気にしない…
+
+```
+cfssl gencert \
+  -ca=ca.pem \
+  -ca-key=ca-key.pem \
+  -config=ca-config.json \
+  -profile=kubernetes \
+  admin-csr.json | cfssljson -bare admin
+```
+```
+$ ls -1
+admin-csr.json
+admin-key.pem
+admin.csr
+admin.pem
+ca-config.json
+ca-csr.json
+ca-key.pem
+ca.csr
+ca.pem
+```
+
+### Kubernetes の worker node 用の CA 証明書とキーファイルを作成します。
+
+公式のやり方よりもわかりやすく分解しました
+
++ worker-0 用
+
+```
+export _node_name='worker-0'
+
+cat > ${_node_name}-csr.json <<EOF
+{
+  "CN": "system:node:${_node_name}",
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "C": "US",
+      "L": "Portland",
+      "O": "system:nodes",
+      "OU": "Kubernetes The Hard Way",
+      "ST": "Oregon"
+    }
+  ]
+}
+EOF
+```
+```
+EXTERNAL_IP=$(gcloud compute instances describe ${_node_name} \
+  --format 'value(networkInterfaces[0].accessConfigs[0].natIP)')
+
+INTERNAL_IP=$(gcloud compute instances describe ${_node_name} \
+  --format 'value(networkInterfaces[0].networkIP)')
+```
+```
+cfssl gencert \
+  -ca=ca.pem \
+  -ca-key=ca-key.pem \
+  -config=ca-config.json \
+  -hostname=${instance},${EXTERNAL_IP},${INTERNAL_IP} \
+  -profile=kubernetes \
+  ${_node_name}-csr.json | cfssljson -bare ${_node_name}
+```
+
++ worker-1 用
+
+```
+export _node_name='worker-1'
+
+cat > ${_node_name}-csr.json <<EOF
+{
+  "CN": "system:node:${_node_name}",
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "C": "US",
+      "L": "Portland",
+      "O": "system:nodes",
+      "OU": "Kubernetes The Hard Way",
+      "ST": "Oregon"
+    }
+  ]
+}
+EOF
+```
+```
+EXTERNAL_IP=$(gcloud compute instances describe ${_node_name} \
+  --format 'value(networkInterfaces[0].accessConfigs[0].natIP)')
+
+INTERNAL_IP=$(gcloud compute instances describe ${_node_name} \
+  --format 'value(networkInterfaces[0].networkIP)')
+```
+```
+cfssl gencert \
+  -ca=ca.pem \
+  -ca-key=ca-key.pem \
+  -config=ca-config.json \
+  -hostname=${instance},${EXTERNAL_IP},${INTERNAL_IP} \
+  -profile=kubernetes \
+  ${_node_name}-csr.json | cfssljson -bare ${_node_name}
+```
+
++ worker-2 用
+
+```
+export _node_name='worker-2'
+
+cat > ${_node_name}-csr.json <<EOF
+{
+  "CN": "system:node:${_node_name}",
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "C": "US",
+      "L": "Portland",
+      "O": "system:nodes",
+      "OU": "Kubernetes The Hard Way",
+      "ST": "Oregon"
+    }
+  ]
+}
+EOF
+```
+```
+EXTERNAL_IP=$(gcloud compute instances describe ${_node_name} \
+  --format 'value(networkInterfaces[0].accessConfigs[0].natIP)')
+
+INTERNAL_IP=$(gcloud compute instances describe ${_node_name} \
+  --format 'value(networkInterfaces[0].networkIP)')
+```
+```
+cfssl gencert \
+  -ca=ca.pem \
+  -ca-key=ca-key.pem \
+  -config=ca-config.json \
+  -hostname=${instance},${EXTERNAL_IP},${INTERNAL_IP} \
+  -profile=kubernetes \
+  ${_node_name}-csr.json | cfssljson -bare ${_node_name}
+```
+
++ 現状のローカル
+
+```
+$ ls -1
+admin-csr.json
+admin-key.pem
+admin.csr
+admin.pem
+ca-config.json
+ca-csr.json
+ca-key.pem
+ca.csr
+ca.pem
+worker-0-csr.json
+worker-0-key.pem
+worker-0.csr
+worker-0.pem
+worker-1-csr.json
+worker-1-key.pem
+worker-1.csr
+worker-1.pem
+worker-2-csr.json
+worker-2-key.pem
+worker-2.csr
+worker-2.pem
 ```
