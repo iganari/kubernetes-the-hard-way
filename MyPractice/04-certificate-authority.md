@@ -577,4 +577,4 @@ gcloud beta compute instances stop kubernetes-the-hard-way-vm
 
 ここまでで、 04. Provisioning a CA and Generating TLS Certificates が完了です :raised_hands:
 
-次は [hoge]() に進みます!! :muscle:
+次は [05. Generating Kubernetes Configuration Files for Authentication](./05-kubernetes-configuration-files.md) に進みます!! :muscle:
