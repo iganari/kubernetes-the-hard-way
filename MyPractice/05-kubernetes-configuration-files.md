@@ -281,29 +281,19 @@ for instance in controller-0 controller-1 controller-2; do
 done
 ```
 ```
-WIP
+$ for instance in controller-0 controller-1 controller-2; do
+>   gcloud compute scp admin.kubeconfig kube-controller-manager.kubeconfig kube-scheduler.kubeconfig ${instance}:~/
+> done
+admin.kubeconfig                                                                                100%  565    27.9KB/s   00:00
+kube-controller-manager.kubeconfig                                                              100%  723   123.2KB/s   00:00
+kube-scheduler.kubeconfig                                                                       100%  651   348.7KB/s   00:00
+admin.kubeconfig                                                                                100%  565   829.1KB/s   00:00
+kube-controller-manager.kubeconfig                                                              100%  723   943.5KB/s   00:00
+kube-scheduler.kubeconfig                                                                       100%  651     1.0MB/s   00:00
+admin.kubeconfig                                                                                100%  565   838.8KB/s   00:00
+kube-controller-manager.kubeconfig                                                              100%  723     1.2MB/s   00:00
+kube-scheduler.kubeconfig                                                                       100%  651     1.3MB/s   00:00
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <details>
 <summary>(不要な場合はスキップ) 作業が終わったら、 GCE は停止しておきましょう。。</summary>
