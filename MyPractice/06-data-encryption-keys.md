@@ -26,4 +26,4 @@ WIP
 
 ここまでで、 06. Generating the Data Encryption Config and Key が完了です :raised_hands:
 
-次は [WIP]() に進みます!! :muscle:
+次は [07. Bootstrapping the etcd Cluster](./07-bootstrapping-etcd.md) に進みます!! :muscle:
