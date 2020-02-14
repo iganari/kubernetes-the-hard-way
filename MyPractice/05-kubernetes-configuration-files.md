@@ -255,4 +255,4 @@ kube-scheduler.kubeconfig                                                       
 
 ここまでで、 05. Generating Kubernetes Configuration Files for Authentication が完了です :raised_hands:
 
-次は [WIP]() に進みます!! :muscle:
+次は [06. Generating the Data Encryption Config and Key](./06-data-encryption-keys.md) に進みます!! :muscle:
