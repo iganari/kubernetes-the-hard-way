@@ -26,4 +26,4 @@ WIP
 
 ここまでで、 08. Bootstrapping the Kubernetes Control Plane が完了です :raised_hands:
 
-次は [WIP]() に進みます!! :muscle:
+次は [09. Bootstrapping the Kubernetes Worker Nodes](./09-bootstrapping-kubernetes-workers.md) に進みます!! :muscle:
