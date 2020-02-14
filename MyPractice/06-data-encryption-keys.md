@@ -11,7 +11,10 @@
 
 ## この章でやること
 
-+ WIP
++ Generating the Data Encryption Config and Key
+  + https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/master/docs/06-data-encryption-keys.md
++ 詳細
+  + WIP
 
 ## 1. WIP
 
