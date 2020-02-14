@@ -7,7 +7,9 @@
 アイコン | 説明
 :-: | :-
 :computer: | ホストマシン
-:package: | Google Compute Engine (GCE) 上に作成した Virtual Machine (VM)
+:package: | Google Compute Engine (GCE) 上に作成した踏み台サーバ (VM)
+:police_car: | GCE 上に作成した Kubernetes Control Plane 用のサーバ (VM)
+:car: | GCE 上に作成した Kubernetes Nodes 用のサーバ (VM)
 
 ## この章でやること
 
@@ -16,11 +18,11 @@
 + 詳細
   + WIP
 
-## 1. WIP
+## 1. The Encryption Key
 
 WIP
 
-## 2. WIP
+## 2. The Encryption Config File
 
 ## 次のステップへ :rocket:
 
