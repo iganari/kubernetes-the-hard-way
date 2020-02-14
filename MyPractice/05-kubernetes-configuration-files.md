@@ -11,106 +11,248 @@
 
 ## この章でやること
 
-+ WIP
-  + WIP
++ Client Authentication Configs
+  + この章では、 client と admin ユーザ用の `controller manager` `kubelet` `kube-proxy` `scheduler` の kubeconfig を作成します。 　
 + Generating Kubernetes Configuration Files for Authentication
   + https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/master/docs/05-kubernetes-configuration-files.md
 
-## 作業
+## 1. Kubernetes Public IP Address
 
-<details>
-<summary>(不要な場合はスキップ) GCE を起動します。</summary>
-
-## GCE を起動します。
-
-[Prepare](./00_prepare.md) で作成した VM を gcloud コマンドで起動します。
-
-+ :computer: GCP と認証を通します。
++ :package: 先に作成した `External IP addresses` を確認します。
 
 ```
-gcloud auth login
+KUBERNETES_PUBLIC_ADDRESS=$(gcloud compute addresses describe kubernetes-the-hard-way \
+  --region $(gcloud config get-value compute/region) \
+  --format 'value(address)')
+```
+```
+### 例
+
+$ KUBERNETES_PUBLIC_ADDRESS=$(gcloud compute addresses describe kubernetes-the-hard-way \
+>   --region $(gcloud config get-value compute/region) \
+>   --format 'value(address)')
+Your active configuration is: [kubernetes-the-hard-way]
+$
+$ echo $KUBERNETES_PUBLIC_ADDRESS
+34.84.1.43
 ```
 
-+ :computer: gcloud コマンドの設定を行います。
+## 2. The kubelet Kubernetes Configuration File
+
++ :package: 各 Worker Node に対して、 kubeconfig を作っていきます
 
 ```
-gcloud config set project iganari-k8s-hardway-pre
-gcloud config set compute/zone asia-northeast1-c
+for instance in worker-0 worker-1 worker-2; do
+  kubectl config set-cluster kubernetes-the-hard-way \
+    --certificate-authority=ca.pem \
+    --embed-certs=true \
+    --server=https://${KUBERNETES_PUBLIC_ADDRESS}:6443 \
+    --kubeconfig=${instance}.kubeconfig
+
+  kubectl config set-credentials system:node:${instance} \
+    --client-certificate=${instance}.pem \
+    --client-key=${instance}-key.pem \
+    --embed-certs=true \
+    --kubeconfig=${instance}.kubeconfig
+
+  kubectl config set-context default \
+    --cluster=kubernetes-the-hard-way \
+    --user=system:node:${instance} \
+    --kubeconfig=${instance}.kubeconfig
+
+  kubectl config use-context default --kubeconfig=${instance}.kubeconfig
+done
 ```
 
-+ :computer: VM の起動を行います。
++ :package: 確認します。
 
 ```
-gcloud beta compute instances start kubernetes-the-hard-way-vm
+$ ls | grep .kubeconfig
+worker-0.kubeconfig
+worker-1.kubeconfig
+worker-2.kubeconfig
 ```
 
-+ :computer: この GCE に SSH して作業を行います。
-  + ここで、 :package: での作業に切り替わります。
+## 3. The kube-proxy Kubernetes Configuration File
+
++ :package: `kube-proxy` のための、kubeconfig を作成します。
 
 ```
-gcloud compute ssh kubernetes-the-hard-way-vm
+vim kube-proxy.kubeconfig
+```
+```
+### 内容
+
+{
+  kubectl config set-cluster kubernetes-the-hard-way \
+    --certificate-authority=ca.pem \
+    --embed-certs=true \
+    --server=https://${KUBERNETES_PUBLIC_ADDRESS}:6443 \
+    --kubeconfig=kube-proxy.kubeconfig
+
+  kubectl config set-credentials system:kube-proxy \
+    --client-certificate=kube-proxy.pem \
+    --client-key=kube-proxy-key.pem \
+    --embed-certs=true \
+    --kubeconfig=kube-proxy.kubeconfig
+
+  kubectl config set-context default \
+    --cluster=kubernetes-the-hard-way \
+    --user=system:kube-proxy \
+    --kubeconfig=kube-proxy.kubeconfig
+
+  kubectl config use-context default --kubeconfig=kube-proxy.kubeconfig
+}
 ```
 
-+ :package: 作業ユーザ(iganari)を変更します。
+
+## 4. The kube-controller-manager Kubernetes Configuration File
+
++ :package: `kube-controller-manager` のための、kubeconfig を作成します。
 
 ```
-su - iganari
+vim kube-controller-manager.kubeconfig
+```
+```
+### 内容
+
+
+{
+  kubectl config set-cluster kubernetes-the-hard-way \
+    --certificate-authority=ca.pem \
+    --embed-certs=true \
+    --server=https://127.0.0.1:6443 \
+    --kubeconfig=kube-controller-manager.kubeconfig
+
+  kubectl config set-credentials system:kube-controller-manager \
+    --client-certificate=kube-controller-manager.pem \
+    --client-key=kube-controller-manager-key.pem \
+    --embed-certs=true \
+    --kubeconfig=kube-controller-manager.kubeconfig
+
+  kubectl config set-context default \
+    --cluster=kubernetes-the-hard-way \
+    --user=system:kube-controller-manager \
+    --kubeconfig=kube-controller-manager.kubeconfig
+
+  kubectl config use-context default --kubeconfig=kube-controller-manager.kubeconfig
+}
 ```
 
-</details>
-
-## 1. WIP
 
 
+## 5. The kube-scheduler Kubernetes Configuration File
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<details>
-<summary>(不要な場合はスキップ) 作業が終わったら、 GCE は停止しておきましょう。。</summary>
-
-## 作業が終わったら、 GCE は停止しておきましょう。
-
-+ :package: GCE から SSH ログアウト
++ :package: `kube-scheduler` のための、kubeconfig を作成します。
 
 ```
-exit
+vim kube-scheduler.kubeconfig
+```
+```
+### 内容
+
+
+{
+  kubectl config set-cluster kubernetes-the-hard-way \
+    --certificate-authority=ca.pem \
+    --embed-certs=true \
+    --server=https://127.0.0.1:6443 \
+    --kubeconfig=kube-scheduler.kubeconfig
+
+  kubectl config set-credentials system:kube-scheduler \
+    --client-certificate=kube-scheduler.pem \
+    --client-key=kube-scheduler-key.pem \
+    --embed-certs=true \
+    --kubeconfig=kube-scheduler.kubeconfig
+
+  kubectl config set-context default \
+    --cluster=kubernetes-the-hard-way \
+    --user=system:kube-scheduler \
+    --kubeconfig=kube-scheduler.kubeconfig
+
+  kubectl config use-context default --kubeconfig=kube-scheduler.kubeconfig
+}
 ```
 
-+ :computer: GCE の停止コマンド
+## 6. The admin Kubernetes Configuration File
+
++ :package: `admin(ユーザ)` のための、kubeconfig を作成します。
 
 ```
-gcloud beta compute instances stop kubernetes-the-hard-way-vm
+vim admin.kubeconfig
+```
+```
+### 内容
+
+
+{
+  kubectl config set-cluster kubernetes-the-hard-way \
+    --certificate-authority=ca.pem \
+    --embed-certs=true \
+    --server=https://127.0.0.1:6443 \
+    --kubeconfig=admin.kubeconfig
+
+  kubectl config set-credentials admin \
+    --client-certificate=admin.pem \
+    --client-key=admin-key.pem \
+    --embed-certs=true \
+    --kubeconfig=admin.kubeconfig
+
+  kubectl config set-context default \
+    --cluster=kubernetes-the-hard-way \
+    --user=admin \
+    --kubeconfig=admin.kubeconfig
+
+  kubectl config use-context default --kubeconfig=admin.kubeconfig
+}
 ```
 
-</details>
+## 7. Distribute the Kubernetes Configuration Files
+
++ :package: 各 Worker Node に対して、 `kubelet` と `kube-proxy` の設定をコピーします
+
+```
+for instance in worker-0 worker-1 worker-2; do
+  gcloud compute scp ${instance}.kubeconfig kube-proxy.kubeconfig ${instance}:~/
+done
+```
+```
+$ for instance in worker-0 worker-1 worker-2; do
+>   gcloud compute scp ${instance}.kubeconfig kube-proxy.kubeconfig ${instance}:~/
+> done
+worker-0.kubeconfig                                                                             100% 6368     9.2MB/s   00:00
+kube-proxy.kubeconfig                                                                           100%  638     1.6MB/s   00:00
+worker-1.kubeconfig                                                                             100% 6372     5.6MB/s   00:00
+kube-proxy.kubeconfig                                                                           100%  638     1.2MB/s   00:00
+worker-2.kubeconfig                                                                             100% 6368     4.9MB/s   00:00
+kube-proxy.kubeconfig                                                                           100%  638     1.2MB/s   00:00
+```
+
+
++ :package: 各 Controller Node に対して、 `kube-controller-manager` と `kube-scheduler` の設定をコピーします
+
+```
+for instance in controller-0 controller-1 controller-2; do
+  gcloud compute scp admin.kubeconfig kube-controller-manager.kubeconfig kube-scheduler.kubeconfig ${instance}:~/
+done
+```
+```
+$ for instance in controller-0 controller-1 controller-2; do
+>   gcloud compute scp admin.kubeconfig kube-controller-manager.kubeconfig kube-scheduler.kubeconfig ${instance}:~/
+> done
+admin.kubeconfig                                                                                100%  565    27.9KB/s   00:00
+kube-controller-manager.kubeconfig                                                              100%  723   123.2KB/s   00:00
+kube-scheduler.kubeconfig                                                                       100%  651   348.7KB/s   00:00
+admin.kubeconfig                                                                                100%  565   829.1KB/s   00:00
+kube-controller-manager.kubeconfig                                                              100%  723   943.5KB/s   00:00
+kube-scheduler.kubeconfig                                                                       100%  651     1.0MB/s   00:00
+admin.kubeconfig                                                                                100%  565   838.8KB/s   00:00
+kube-controller-manager.kubeconfig                                                              100%  723     1.2MB/s   00:00
+kube-scheduler.kubeconfig                                                                       100%  651     1.3MB/s   00:00
+```
 
 ## 次のステップへ :rocket:
 
-ここまでで、 04. Provisioning a CA and Generating TLS Certificates が完了です :raised_hands:
+ここまでで、 05. Generating Kubernetes Configuration Files for Authentication が完了です :raised_hands:
 
-次は [WIP]() に進みます!! :muscle:
+次は [06. Generating the Data Encryption Config and Key](./06-data-encryption-keys.md) に進みます!! :muscle:
