@@ -19,7 +19,7 @@
 + 04 [Provisioning a CA and Generating TLS Certificates](./04-certificate-authority.md)
 + 05 [Generating Kubernetes Configuration Files for Authentication](./05-kubernetes-configuration-files.md)
 + 06 [Generating the Data Encryption Config and Key](06-data-encryption-keys.md)
-+ 07 Bootstrapping the etcd Cluster
++ 07 [Bootstrapping the etcd Cluster](./07-bootstrapping-etcd.md)
 + 08 Bootstrapping the Kubernetes Control Plane
 + 09 Bootstrapping the Kubernetes Worker Nodes
 + 10 Configuring kubectl for Remote Access
