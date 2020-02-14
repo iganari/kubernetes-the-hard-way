@@ -11,8 +11,8 @@
 
 ## この章でやること
 
-+ WIP
-  + WIP
++ Client Authentication Configs
+  + この章では、 client と admin ユーザ用の `controller manager` `kubelet` `kube-proxy` `scheduler` の kubeconfig を作成します。 　
 + Generating Kubernetes Configuration Files for Authentication
   + https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/master/docs/05-kubernetes-configuration-files.md
 
@@ -59,9 +59,33 @@ su - iganari
 
 </details>
 
-## 1. 
+## 1. Kubernetes Public IP Address
 
+WIP
 
+## 2. The kubelet Kubernetes Configuration File
+
+WIP
+
+## 3. The kube-proxy Kubernetes Configuration File
+
+WIP
+
+## 4. The kube-controller-manager Kubernetes Configuration File
+
+WIP
+
+## 5. The kube-scheduler Kubernetes Configuration File
+
+WIP
+
+## 6. The admin Kubernetes Configuration File
+
+WIP
+
+## 7. Distribute the Kubernetes Configuration Files
+
+WIP
 
 
 
