@@ -20,9 +20,55 @@
 
 ## 1. The Encryption Key
 
-WIP
++ :package: 暗号化キーを作成します
+
+```
+ENCRYPTION_KEY=$(head -c 32 /dev/urandom | base64)
+```
+```
+### 例
+
+$ echo $ENCRYPTION_KEY
+SFVeSFv7DrHbTRKg7I6iZ+w2nuJUhjUPgVqkGlFA3IM=
+```
 
 ## 2. The Encryption Config File
+
++ :package: 暗号化キーの設定ファイルである `encryption-config.yaml` を作成します。
+
+```
+cat > encryption-config.yaml <<EOF
+kind: EncryptionConfig
+apiVersion: v1
+resources:
+  - resources:
+      - secrets
+    providers:
+      - aescbc:
+          keys:
+            - name: key1
+              secret: ${ENCRYPTION_KEY}
+      - identity: {}
+EOF
+```
+
++ :package: 作成した `encryption-config.yaml` を、 各 controller instance (:police_car:) にコピーします。
+
+```
+for instance in controller-0 controller-1 controller-2; do
+  gcloud compute scp encryption-config.yaml ${instance}:~/
+done
+```
+```
+### 例
+
+$ for instance in controller-0 controller-1 controller-2; do
+>   gcloud compute scp encryption-config.yaml ${instance}:~/
+> done
+encryption-config.yaml                                                                          100%  240   415.6KB/s   00:00
+encryption-config.yaml                                                                          100%  240   334.8KB/s   00:00
+encryption-config.yaml                                                                          100%  240   280.1KB/s   00:00
+```
 
 ## 次のステップへ :rocket:
 
