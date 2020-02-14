@@ -259,6 +259,18 @@ for instance in worker-0 worker-1 worker-2; do
   gcloud compute scp ${instance}.kubeconfig kube-proxy.kubeconfig ${instance}:~/
 done
 ```
+```
+$ for instance in worker-0 worker-1 worker-2; do
+>   gcloud compute scp ${instance}.kubeconfig kube-proxy.kubeconfig ${instance}:~/
+> done
+worker-0.kubeconfig                                                                             100% 6368     9.2MB/s   00:00
+kube-proxy.kubeconfig                                                                           100%  638     1.6MB/s   00:00
+worker-1.kubeconfig                                                                             100% 6372     5.6MB/s   00:00
+kube-proxy.kubeconfig                                                                           100%  638     1.2MB/s   00:00
+worker-2.kubeconfig                                                                             100% 6368     4.9MB/s   00:00
+kube-proxy.kubeconfig                                                                           100%  638     1.2MB/s   00:00
+```
+
 
 + 各 Controller Node に対して、 `kube-controller-manager` と `kube-scheduler` の設定をコピーします
 
@@ -268,10 +280,9 @@ for instance in controller-0 controller-1 controller-2; do
   gcloud compute scp admin.kubeconfig kube-controller-manager.kubeconfig kube-scheduler.kubeconfig ${instance}:~/
 done
 ```
-
-
-
-
+```
+WIP
+```
 
 
 
