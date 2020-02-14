@@ -17,8 +17,8 @@
 + 02 [Installing the Client Tools: クライアントツールのインストール](./02-client-tools.md)
 + 03 [Provisioning Compute Resources](./03-provisioning-compute-resources.md)
 + 04 [Provisioning a CA and Generating TLS Certificates](./04-certificate-authority.md)
-+ 05 Generating Kubernetes Configuration Files for Authentication
-+ 06 Generating the Data Encryption Config and Key
++ 05 [Generating Kubernetes Configuration Files for Authentication](./05-kubernetes-configuration-files.md)
++ 06 [Generating the Data Encryption Config and Key](06-data-encryption-keys.md)
 + 07 Bootstrapping the etcd Cluster
 + 08 Bootstrapping the Kubernetes Control Plane
 + 09 Bootstrapping the Kubernetes Worker Nodes
