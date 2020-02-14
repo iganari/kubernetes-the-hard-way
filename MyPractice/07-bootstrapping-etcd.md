@@ -26,4 +26,4 @@ WIP
 
 ここまでで、 07. Bootstrapping the etcd Cluster が完了です :raised_hands:
 
-次は [WIP]() に進みます!! :muscle:
+次は [08. Bootstrapping the Kubernetes Control Plane](./08-bootstrapping-kubernetes-controllers.md) に進みます!! :muscle:
