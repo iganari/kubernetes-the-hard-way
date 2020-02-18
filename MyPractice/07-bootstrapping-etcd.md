@@ -16,11 +16,36 @@
 + 詳細
   + WIP
 
-## 1. WIP
+## 1. 注意
 
-WIP
++ この章では、 各 controller instance にて作業をします
+  + `controller-0` , `controller-2` , `controller-2`
+  + したがって、以下の作業は gcloud コマンドなどで、各インスタンスにログイン後に行ってください
++ gcloud を用いた SSH ログインをするコマンド例
 
-## 2. WIP
+```
+gcloud compute ssh controller-0
+```
+
++ なお、このような作業の際は tmux などのツールが有用です
+
+以降は controller instance にログイン後の作業です
+
+## 2. Download and Install the etcd Binaries
+
++ ユーザ確認
+
+```
+whoami
+```
+```
+### 例
+
+root@controller-0:~# whoami
+root
+```
+
+
 
 ## 次のステップへ :rocket:
 
