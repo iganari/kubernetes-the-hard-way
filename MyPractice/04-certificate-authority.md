@@ -19,47 +19,6 @@
 
 ## 作業
 
-<details>
-<summary>(不要な場合はスキップ) GCE を起動します。</summary>
-
-## GCE を起動します。
-
-[Prepare](./00_prepare.md) で作成した VM を gcloud コマンドで起動します。
-
-+ :computer: GCP と認証を通します。
-
-```
-gcloud auth login
-```
-
-+ :computer: gcloud コマンドの設定を行います。
-
-```
-gcloud config set project iganari-k8s-hardway-pre
-gcloud config set compute/zone asia-northeast1-c
-```
-
-+ :computer: VM の起動を行います。
-
-```
-gcloud beta compute instances start kubernetes-the-hard-way-vm
-```
-
-+ :computer: この GCE に SSH して作業を行います。
-  + ここで、 :package: での作業に切り替わります。
-
-```
-gcloud compute ssh kubernetes-the-hard-way-vm
-```
-
-+ :package: 作業ユーザ(iganari)を変更します。
-
-```
-su - iganari
-```
-
-</details>
-
 ## 1. 鍵作成 ([Certificate Authority](https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/master/docs/04-certificate-authority.md#certificate-authority))
 
 ### `CA configuration file (CA)` , `certificate` , and `private key` を作成します。
@@ -538,11 +497,16 @@ service-account.pem
 
 ### 今まで作成してきた CA 証明書とキーファイルをコントロールプレーン及び、ワーカーノードにコピーします。
 
++ 各ワーカーノードに対してコピーします
+
 ```
 for instance in worker-0 worker-1 worker-2; do
   gcloud compute scp ca.pem ${instance}-key.pem ${instance}.pem ${instance}:~/
 done
 ```
+
++ 各コントロールプレーンに対してコピーします
+
 ```
 for instance in controller-0 controller-1 controller-2; do
   gcloud compute scp ca.pem ca-key.pem kubernetes-key.pem kubernetes.pem \
@@ -551,26 +515,6 @@ done
 ```
 
 ---> ここまで出来たらこの章は完了です。
-
-<details>
-<summary>(不要な場合はスキップ) 作業が終わったら、 GCE は停止しておきましょう。。</summary>
-
-## 作業が終わったら、 GCE は停止しておきましょう。
-
-+ :package: GCE から SSH ログアウト
-
-```
-exit
-```
-
-+ :computer: GCE の停止コマンド
-
-```
-gcloud beta compute instances stop kubernetes-the-hard-way-vm
-```
-
-</details>
-
 
 ## 次のステップへ :rocket:
 

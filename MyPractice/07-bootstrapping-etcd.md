@@ -34,7 +34,7 @@ gcloud compute ssh controller-0
 
 + なお、このような作業の際は tmux などのツールが有用です
 
-以降は controller instance にログイン後の作業です ---> :police_car:
+以降は controller instance にログイン後の作業です ---> :police_car: `controller-0` `controller-1` `controller-2`
 
 ## 2. Download and Install the etcd Binaries
 
@@ -207,13 +207,47 @@ sudo ETCDCTL_API=3 etcdctl member list \
   --cert=/etc/etcd/kubernetes.pem \
   --key=/etc/etcd/kubernetes-key.pem
 ```
+
++ controller-0 にて確認
+
 ```
-### 例
-
-
----> controller-2 が参加しないので調査中
+iganari@controller-0:~$ sudo ETCDCTL_API=3 etcdctl member list \
+>   --endpoints=https://127.0.0.1:2379 \
+>   --cacert=/etc/etcd/ca.pem \
+>   --cert=/etc/etcd/kubernetes.pem \
+>   --key=/etc/etcd/kubernetes-key.pem
+3a57933972cb5131, started, controller-2, https://10.240.0.12:2380, https://10.240.0.12:2379, false
+f98dc20bce6225a0, started, controller-0, https://10.240.0.10:2380, https://10.240.0.10:2379, false
+ffed16798470cab5, started, controller-1, https://10.240.0.11:2380, https://10.240.0.11:2379, false
 ```
 
++ controller-1 にて確認
+
+```
+iganari@controller-1:~$ sudo ETCDCTL_API=3 etcdctl member list \
+>   --endpoints=https://127.0.0.1:2379 \
+>   --cacert=/etc/etcd/ca.pem \
+>   --cert=/etc/etcd/kubernetes.pem \
+>   --key=/etc/etcd/kubernetes-key.pem
+3a57933972cb5131, started, controller-2, https://10.240.0.12:2380, https://10.240.0.12:2379, false
+f98dc20bce6225a0, started, controller-0, https://10.240.0.10:2380, https://10.240.0.10:2379, false
+ffed16798470cab5, started, controller-1, https://10.240.0.11:2380, https://10.240.0.11:2379, false
+```
+
++ controller-2 にて確認
+
+```
+iganari@controller-2:~$ sudo ETCDCTL_API=3 etcdctl member list \
+>   --endpoints=https://127.0.0.1:2379 \
+>   --cacert=/etc/etcd/ca.pem \
+>   --cert=/etc/etcd/kubernetes.pem \
+>   --key=/etc/etcd/kubernetes-key.pem
+3a57933972cb5131, started, controller-2, https://10.240.0.12:2380, https://10.240.0.12:2379, false
+f98dc20bce6225a0, started, controller-0, https://10.240.0.10:2380, https://10.240.0.10:2379, false
+ffed16798470cab5, started, controller-1, https://10.240.0.11:2380, https://10.240.0.11:2379, false
+```
+
+---> すべて同じ出力結果が得られました!!
 
 ## 次のステップへ :rocket:
 
