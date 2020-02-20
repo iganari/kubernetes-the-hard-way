@@ -395,6 +395,6 @@ worker-2   Ready    <none>   38s   v1.15.3
 
 ## 次のステップへ :rocket:
 
-ここまでで、 09. Bootstrapping the Kubernetes Worker Nodes が完了です :raised_hands:
+ここまでで、09. Bootstrapping the Kubernetes Worker Nodes が完了です :raised_hands:
 
-次は [WIP]() に進みます!! :muscle:
+次は [10. Configuring kubectl for Remote Access](./10-configuring-kubectl.md) に進みます!! :muscle:
