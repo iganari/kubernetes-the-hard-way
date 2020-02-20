@@ -8,6 +8,8 @@
 :-: | :-
 :computer: | ホストマシン
 :package: | Google Compute Engine (GCE) 上に作成した Virtual Machine (VM)
+:police_car: | GCE 上に作成した Kubernetes Control Plane 用のサーバ (VM)
+:car: | GCE 上に作成した Kubernetes Nodes 用のサーバ (VM) 
 
 ## この章でやること
 

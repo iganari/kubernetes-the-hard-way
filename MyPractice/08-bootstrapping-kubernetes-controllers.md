@@ -550,6 +550,8 @@ $ curl --cacert ca.pem https://${KUBERNETES_PUBLIC_ADDRESS}:6443/version
   "platform": "linux/amd64"
 ```
 
+---> 無事に Kubernetes の Version 情報が取得出来ました!! :+1:
+
 ## 次のステップへ :rocket:
 
 ここまでで、 08. Bootstrapping the Kubernetes Control Plane が完了です :raised_hands:
