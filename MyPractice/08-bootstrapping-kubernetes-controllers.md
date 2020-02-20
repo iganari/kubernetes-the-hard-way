@@ -334,32 +334,221 @@ Content-Type: text/plain; charset=utf-8
 Content-Length: 2
 Connection: keep-alive
 X-Content-Type-Options: nosniff
-
 ```
 
 ## 3. RBAC for Kubelet Authorization
 
++ :police_car: WIP
+
+```
+cat <<EOF | kubectl apply --kubeconfig admin.kubeconfig -f -
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole
+metadata:
+  annotations:
+    rbac.authorization.kubernetes.io/autoupdate: "true"
+  labels:
+    kubernetes.io/bootstrapping: rbac-defaults
+  name: system:kube-apiserver-to-kubelet
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - nodes/proxy
+      - nodes/stats
+      - nodes/log
+      - nodes/spec
+      - nodes/metrics
+    verbs:
+      - "*"
+EOF
+```
+
++ :police_car: WIP
+
+```
+cat <<EOF | kubectl apply --kubeconfig admin.kubeconfig -f -
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: system:kube-apiserver
+  namespace: ""
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:kube-apiserver-to-kubelet
+subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: User
+    name: kubernetes
+EOF
+```
+
+## 4. The Kubernetes Frontend Load Balancer
+
++ :warning: このセクションはコントロールプレーンやノードワーカー内から権限が足りないため実行出来ません
+  + 踏み台サーバから実行しましょう ---> :package:
+
+### 4-1. Provision a Network Load Balancer
 
 
++ :package: 以前作成した、静的 IP アドレスの取得
 
 
+```
+KUBERNETES_PUBLIC_ADDRESS=$(gcloud compute addresses describe kubernetes-the-hard-way \
+  --region $(gcloud config get-value compute/region) \
+  --format 'value(address)')
+```
+```
+### 例
 
+$ KUBERNETES_PUBLIC_ADDRESS=$(gcloud compute addresses describe kubernetes-the-hard-way \
+  --region $(gcloud config get-value compute/region) \
+  --format 'value(address)')
+Your active configuration is: [kubernetes-the-hard-way]
+$
+$ echo ${KUBERNETES_PUBLIC_ADDRESS}
+34.84.1.43
+```
 
++ :package: ヘルスチェックの作成
 
+```
+gcloud compute http-health-checks create kubernetes \
+  --description "Kubernetes Health Check" \
+  --host "kubernetes.default.svc.cluster.local" \
+  --request-path "/healthz"
+```
+```
+### 例
 
+$ gcloud compute http-health-checks create kubernetes \
+>   --description "Kubernetes Health Check" \
+>   --host "kubernetes.default.svc.cluster.local" \
+>   --request-path "/healthz"
+Created [https://www.googleapis.com/compute/v1/projects/${Yout-PJ-name}/global/httpHealthChecks/kubernetes].
+NAME        HOST                                  PORT  REQUEST_PATH
+kubernetes  kubernetes.default.svc.cluster.local  80    /healthz
+```
 
++ :package: Fire wall rule の作成
 
+```
+gcloud compute firewall-rules create kubernetes-the-hard-way-allow-health-check \
+  --network kubernetes-the-hard-way \
+  --source-ranges 209.85.152.0/22,209.85.204.0/22,35.191.0.0/16 \
+  --allow tcp
+```
+```
+### 例
 
+$ gcloud compute firewall-rules create kubernetes-the-hard-way-allow-health-check \
+>   --network kubernetes-the-hard-way \
+>   --source-ranges 209.85.152.0/22,209.85.204.0/22,35.191.0.0/16 \
+>   --allow tcp
+Creating firewall...⠶Created [https://www.googleapis.com/compute/v1/projects/${Yout-PJ-name}/global/firewalls/kubernetes-the-hard-way-allow-health-check].
+Creating firewall...done.
+NAME                                        NETWORK                  DIRECTION  PRIORITY  ALLOW  DENY  DISABLED
+kubernetes-the-hard-way-allow-health-check  kubernetes-the-hard-way  INGRESS    1000      tcp          False
+```
 
++ :package: 
 
+```
+gcloud compute target-pools create kubernetes-target-pool \
+  --http-health-check kubernetes
+```
+```
+### 例
 
+$ gcloud compute target-pools create kubernetes-target-pool \
+>   --http-health-check kubernetes
+Created [https://www.googleapis.com/compute/v1/projects/${Yout-PJ-name}/regions/asia-northeast1/targetPools/kubernetes-target-pool].
+NAME                    REGION           SESSION_AFFINITY  BACKUP  HEALTH_CHECKS
+kubernetes-target-pool  asia-northeast1  NONE                      kubernetes
+```
 
++ :package: 
 
+```
+gcloud compute target-pools add-instances kubernetes-target-pool \
+ --instances controller-0,controller-1,controller-2
+```
+```
+### 例
 
+$ gcloud compute target-pools add-instances kubernetes-target-pool \
+>  --instances controller-0,controller-1,controller-2
+Updated [https://www.googleapis.com/compute/v1/projects/${Yout-PJ-name}/regions/asia-northeast1/targetPools/kubernetes-target-pool].
+```
 
++ :package: 
 
+```
+gcloud compute forwarding-rules create kubernetes-forwarding-rule \
+  --address ${KUBERNETES_PUBLIC_ADDRESS} \
+  --ports 6443 \
+  --region $(gcloud config get-value compute/region) \
+  --target-pool kubernetes-target-pool
+```
+```
+### 例
 
+$ gcloud compute forwarding-rules create kubernetes-forwarding-rule \
+>   --address ${KUBERNETES_PUBLIC_ADDRESS} \
+>   --ports 6443 \
+>   --region $(gcloud config get-value compute/region) \
+>   --target-pool kubernetes-target-pool
+Your active configuration is: [kubernetes-the-hard-way]
+Created [https://www.googleapis.com/compute/v1/projects/${Yout-PJ-name}/regions/asia-northeast1/forwardingRules/kubernetes-forwarding-rule].
+```
 
+### 4-2. Verification
+
++ :package: 以前作成した、静的 IP アドレスの取得
+
+```
+KUBERNETES_PUBLIC_ADDRESS=$(gcloud compute addresses describe kubernetes-the-hard-way \
+  --region $(gcloud config get-value compute/region) \
+  --format 'value(address)')
+```
+```
+### 例
+
+$ KUBERNETES_PUBLIC_ADDRESS=$(gcloud compute addresses describe kubernetes-the-hard-way \
+  --region $(gcloud config get-value compute/region) \
+  --format 'value(address)')
+Your active configuration is: [kubernetes-the-hard-way]
+$
+$ echo ${KUBERNETES_PUBLIC_ADDRESS}
+34.84.1.43
+```
+
++ :package: HTTP リクエストを用いて、Kubernetes のバージョン情報を取得します。
+  + :warning: 以前作成した `ca.pem` が必要になります
+
+```
+curl --cacert ca.pem https://${KUBERNETES_PUBLIC_ADDRESS}:6443/version
+```
+```
+### 例
+
+$ ls ca.pem
+ca.pem
+$
+$ curl --cacert ca.pem https://${KUBERNETES_PUBLIC_ADDRESS}:6443/version
+{
+  "major": "1",
+  "minor": "15",
+  "gitVersion": "v1.15.3",
+  "gitCommit": "2d3c76f9091b6bec110a5e63777c332469e0cba2",
+  "gitTreeState": "clean",
+  "buildDate": "2019-08-19T11:05:50Z",
+  "goVersion": "go1.12.9",
+  "compiler": "gc",
+  "platform": "linux/amd64"
+```
 
 ## 次のステップへ :rocket:
 
