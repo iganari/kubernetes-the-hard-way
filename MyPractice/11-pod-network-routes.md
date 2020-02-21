@@ -13,60 +13,81 @@
 
 ## この章でやること
 
-+ Bootstrapping the Kubernetes Worker Nodes
-  + https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/master/docs/09-bootstrapping-kubernetes-workers.md
++ Provisioning Pod Network Routes
+  + https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/master/docs/11-pod-network-routes.md
 + 詳細
-  + WIP
+  + この章では、Node の Pod CIDR 範囲を Node の内部 IP アドレスにマップする、各 worker node のルートを作成します。
 
-## 1. 注意
+## 1. The Routing Table
 
-+ この章では、 各 worker instance にて作業をします
-  + `controller-0` , `controller-2` , `controller-2`
-  + したがって、以下の作業は gcloud コマンドなどで、各インスタンスにログイン後に行ってください
-+ gcloud を用いた SSH ログインをするコマンド例
-  + :warning:
-  + gcloud compute ssh は実行するユーザを対象の VM 上にも作成します。
-  + root ユーザ以外で実行し、VM 上でも root ユーザ以外の sudo 実行出来るユーザで進めていく認識で見てください。
++ :package: `kubernetes-the-hard-way` という名前の VPC network 内において、Routes を作成するために必要な情報を収集します
 
 ```
-gcloud compute ssh controller-0
+for instance in worker-0 worker-1 worker-2; do
+  gcloud compute instances describe ${instance} \
+    --format 'value[separator=" "](networkInterfaces[0].networkIP,metadata.items[0].value)'
+done
+```
+```
+$ for instance in worker-0 worker-1 worker-2; do
+>   gcloud compute instances describe ${instance} \
+>     --format 'value[separator=" "](networkInterfaces[0].networkIP,metadata.items[0].value)'
+> done
+10.240.0.20 10.200.0.0/24
+10.240.0.21 10.200.1.0/24
+10.240.0.22 10.200.2.0/24
 ```
 
-+ なお、このような作業の際は tmux などのツールが有用です
 
-以降は controller instance にログイン後の作業です ---> :police_car: `controller-0` `controller-1` `controller-2`
+## 2. Routes
 
-## 2. WIP
-
-+ WIP
++ :package: 各 worker instance 用の network routes を作成します
 
 ```
+for i in 0 1 2; do
+  gcloud compute routes create kubernetes-route-10-200-${i}-0-24 \
+    --network kubernetes-the-hard-way \
+    --next-hop-address 10.240.0.2${i} \
+    --destination-range 10.200.${i}.0/24
+done
+```
+```
+### 例
 
+$ for i in 0 1 2; do
+>   gcloud compute routes create kubernetes-route-10-200-${i}-0-24 \
+>     --network kubernetes-the-hard-way \
+>     --next-hop-address 10.240.0.2${i} \
+>     --destination-range 10.200.${i}.0/24
+> done
+Created [https://www.googleapis.com/compute/v1/projects/${Your Project Name}/global/routes/kubernetes-route-10-200-0-0-24].
+NAME                            NETWORK                  DEST_RANGE     NEXT_HOP     PRIORITY
+kubernetes-route-10-200-0-0-24  kubernetes-the-hard-way  10.200.0.0/24  10.240.0.20  1000
+Created [https://www.googleapis.com/compute/v1/projects/${Your Project Name}/global/routes/kubernetes-route-10-200-1-0-24].
+NAME                            NETWORK                  DEST_RANGE     NEXT_HOP     PRIORITY
+kubernetes-route-10-200-1-0-24  kubernetes-the-hard-way  10.200.1.0/24  10.240.0.21  1000
+Created [https://www.googleapis.com/compute/v1/projects/${Your Project Name}/global/routes/kubernetes-route-10-200-2-0-24].
+NAME                            NETWORK                  DEST_RANGE     NEXT_HOP     PRIORITY
+kubernetes-route-10-200-2-0-24  kubernetes-the-hard-way  10.200.2.0/24  10.240.0.22  1000
 ```
 
-## 3. WIP
-
-+ WIP
++ :package: VPC network: `kubernetes-the-hard-way` のリストを確認してみましょう 
 
 ```
+gcloud compute routes list --filter "network: kubernetes-the-hard-way"
+```
+```
+### 例
 
+$ gcloud compute routes list --filter "network: kubernetes-the-hard-way"
+NAME                            NETWORK                  DEST_RANGE     NEXT_HOP                  PRIORITY
+default-route-40b71b1cb409ae65  kubernetes-the-hard-way  0.0.0.0/0      default-internet-gateway  1000
+default-route-7ad42a3d3d193df4  kubernetes-the-hard-way  10.240.0.0/24  kubernetes-the-hard-way   1000
+kubernetes-route-10-200-0-0-24  kubernetes-the-hard-way  10.200.0.0/24  10.240.0.20               1000
+kubernetes-route-10-200-1-0-24  kubernetes-the-hard-way  10.200.1.0/24  10.240.0.21               1000
+kubernetes-route-10-200-2-0-24  kubernetes-the-hard-way  10.200.2.0/24  10.240.0.22               1000
 ```
 
-## 4. WIP
-
-+ WIP
-
-```
-
-```
-
-## 5. WIP
-
-+ WIP
-
-```
-
-```
 
 ## 次のステップへ :rocket:
 

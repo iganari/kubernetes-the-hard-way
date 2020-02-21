@@ -121,6 +121,7 @@ Switched to context "kubernetes-the-hard-way".
 ## 3. Verification
 
 + :package: WIP
+  + ドキュメント差異があるので要確認
 
 ```
 kubectl get componentstatuses
