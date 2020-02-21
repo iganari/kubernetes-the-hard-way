@@ -13,14 +13,14 @@
 
 ## この章でやること
 
-+ Bootstrapping the Kubernetes Worker Nodes
-  + https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/master/docs/09-bootstrapping-kubernetes-workers.md
++ Configuring kubectl for Remote Access
+  + https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/master/docs/10-configuring-kubectl.md
 + 詳細
-  + WIP
+  + admin 権限をベースとした、kebectl コマンド用の kubeconfig file を作ります
 
 ## 1. 注意
 
-+ この章では、 各 worker instance にて作業をします
++ この章では、 各 controller instance にて作業をします
   + `controller-0` , `controller-2` , `controller-2`
   + したがって、以下の作業は gcloud コマンドなどで、各インスタンスにログイン後に行ってください
 + gcloud を用いた SSH ログインをするコマンド例
@@ -36,37 +36,118 @@ gcloud compute ssh controller-0
 
 以降は controller instance にログイン後の作業です ---> :police_car: `controller-0` `controller-1` `controller-2`
 
-## 2. WIP
+## 2. The Admin Kubernetes Configuration File
 
-+ WIP
-
-```
++ :package: admin ユーザーとしての認証に適した kubeconfig file を生成します
 
 ```
+KUBERNETES_PUBLIC_ADDRESS=$(gcloud compute addresses describe kubernetes-the-hard-way \
+  --region $(gcloud config get-value compute/region) \
+  --format 'value(address)')
+```
+```
+### 例
 
-## 3. WIP
-
-+ WIP
-
+$ KUBERNETES_PUBLIC_ADDRESS=$(gcloud compute addresses describe kubernetes-the-hard-way \
+>   --region $(gcloud config get-value compute/region) \
+>   --format 'value(address)')
+Your active configuration is: [kubernetes-the-hard-way]
 ```
 
-```
-
-## 4. WIP
-
-+ WIP
++ :package: WIP
 
 ```
+kubectl config set-cluster kubernetes-the-hard-way \
+  --certificate-authority=ca.pem \
+  --embed-certs=true \
+  --server=https://${KUBERNETES_PUBLIC_ADDRESS}:6443
+```
+```
+### 例
 
+$ kubectl config set-cluster kubernetes-the-hard-way \
+>   --certificate-authority=ca.pem \
+>   --embed-certs=true \
+>   --server=https://${KUBERNETES_PUBLIC_ADDRESS}:6443
+Cluster "kubernetes-the-hard-way" set.
 ```
 
-## 5. WIP
-
-+ WIP
++ :package: WIP
 
 ```
+kubectl config set-credentials admin \
+  --client-certificate=admin.pem \
+  --client-key=admin-key.pem
+```
+```
+### 例
+
+$ kubectl config set-credentials admin \
+>   --client-certificate=admin.pem \
+>   --client-key=admin-key.pem
+User "admin" set.
+```
+
++ :package: WIP
 
 ```
+kubectl config set-context kubernetes-the-hard-way \
+  --cluster=kubernetes-the-hard-way \
+  --user=admin
+```
+```
+### 例
+
+$ kubectl config set-context kubernetes-the-hard-way \
+>   --cluster=kubernetes-the-hard-way \
+>   --user=admin
+Context "kubernetes-the-hard-way" created.
+```
+
++ :package: WIP
+
+```
+kubectl config use-context kubernetes-the-hard-way
+```
+```
+### 例
+
+$ kubectl config use-context kubernetes-the-hard-way
+Switched to context "kubernetes-the-hard-way".
+```
+
+
+
+## 3. Verification
+
++ :package: WIP
+
+```
+kubectl get componentstatuses
+```
+```
+$ kubectl get componentstatuses
+NAME                 AGE
+scheduler            <unknown>
+controller-manager   <unknown>
+etcd-2               <unknown>
+etcd-1               <unknown>
+etcd-0               <unknown>
+```
+
++ :package: WIP
+
+```
+kubectl get nodes
+```
+```
+$ kubectl get nodes
+NAME       STATUS   ROLES    AGE   VERSION
+worker-0   Ready    <none>   20h   v1.15.3
+worker-1   Ready    <none>   20h   v1.15.3
+worker-2   Ready    <none>   20h   v1.15.3
+```
+
 
 ## 次のステップへ :rocket:
 
