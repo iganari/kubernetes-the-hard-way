@@ -13,8 +13,8 @@
 
 ## この章でやること
 
-+ Bootstrapping the Kubernetes Worker Nodes
-  + https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/master/docs/09-bootstrapping-kubernetes-workers.md
++ Deploying the DNS Cluster Add-on
+  + https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/master/docs/12-dns-addon.md
 + 詳細
   + WIP
 
@@ -36,7 +36,7 @@ gcloud compute ssh controller-0
 
 以降は controller instance にログイン後の作業です ---> :police_car: `controller-0` `controller-1` `controller-2`
 
-## 2. WIP
+## 2. The DNS Cluster Add-on
 
 + WIP
 
