@@ -18,54 +18,86 @@
 + 詳細
   + WIP
 
-## 1. 注意
+## 1. The DNS Cluster Add-on
 
-+ この章では、 各 worker instance にて作業をします
-  + `controller-0` , `controller-2` , `controller-2`
-  + したがって、以下の作業は gcloud コマンドなどで、各インスタンスにログイン後に行ってください
-+ gcloud を用いた SSH ログインをするコマンド例
-  + :warning:
-  + gcloud compute ssh は実行するユーザを対象の VM 上にも作成します。
-  + root ユーザ以外で実行し、VM 上でも root ユーザ以外の sudo 実行出来るユーザで進めていく認識で見てください。
++ :package: K8s クラスターの拡張機能 (add-on) である `coredns` をデプロイします
 
 ```
-gcloud compute ssh controller-0
+kubectl apply -f https://storage.googleapis.com/kubernetes-the-hard-way/coredns.yaml
+```
+```
+### 例
+
+$ kubectl apply -f https://storage.googleapis.com/kubernetes-the-hard-way/coredns.yaml
+serviceaccount/coredns created
+clusterrole.rbac.authorization.k8s.io/system:coredns created
+clusterrolebinding.rbac.authorization.k8s.io/system:coredns created
+configmap/coredns created
+deployment.apps/coredns created
+service/kube-dns created
 ```
 
-+ なお、このような作業の際は tmux などのツールが有用です
-
-以降は controller instance にログイン後の作業です ---> :police_car: `controller-0` `controller-1` `controller-2`
-
-## 2. The DNS Cluster Add-on
-
-+ WIP
++ :package: `kube-dns` deployment によって、生成された Pod のリストを確認します
 
 ```
-
+kubectl get pods -l k8s-app=kube-dns -n kube-system
+```
+```
+$ kubectl get pods -l k8s-app=kube-dns -n kube-system
+NAME                     READY   STATUS    RESTARTS   AGE
+coredns-5fb99965-92xqh   0/1     Running   0          34s
+coredns-5fb99965-ktxpr   0/1     Running   0          34s
 ```
 
-## 3. WIP
+## 2. Verification
 
-+ WIP
-
-```
++ :package: `busybox` の deployment を作成します
 
 ```
-
-## 4. WIP
-
-+ WIP
-
+kubectl run --generator=run-pod/v1 busybox --image=busybox:1.28 --command -- sleep 3600
+```
+```
+$ kubectl run --generator=run-pod/v1 busybox --image=busybox:1.28 --command -- sleep 3600
+pod/busybox created
 ```
 
-```
-
-## 5. WIP
-
-+ WIP
++ :package: `busybox` deployment によって、生成された Pod のリストを確認します
 
 ```
+kubectl get pods -l run=busybox
+```
+```
+### 例
 
+$ kubectl get pods -l run=busybox
+NAME      READY   STATUS    RESTARTS   AGE
+busybox   1/1     Running   0          43s
+```
+
++ :package: `busybox` Pod のフルネームを取得します
+
+```
+POD_NAME=$(kubectl get pods -l run=busybox -o jsonpath="{.items[0].metadata.name}")
+```
+```
+### 例
+
+$ echo ${POD_NAME}
+busybox
+```
+
++ `busybox` Pod の中から kubernetes service の DNS lookup を実行します。
+
+```
+kubectl exec -ti $POD_NAME -- nslookup kubernetes
+```
+```
+### 例
+
+$ kubectl exec -ti $POD_NAME -- nslookup kubernetes
+Error from server: error dialing backend: x509: certificate is not valid for any names, but wanted to match worker-1
+
+---> 参照出来ていない…
 ```
 
 ## 次のステップへ :rocket:
